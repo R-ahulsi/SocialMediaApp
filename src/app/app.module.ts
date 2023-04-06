@@ -8,6 +8,8 @@ import { SiteLeaderboardComponent } from './site-leaderboard/site-leaderboard.co
 import { NavigationBarComponent } from './navigation-bar/navigation-bar.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { LoginComponent } from './login/login.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
+import { FriendsComponent } from './friends/friends.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +17,9 @@ import { LoginComponent } from './login/login.component';
     SiteLeaderboardComponent,
     NavigationBarComponent,
     SignUpComponent,
-    LoginComponent
+    LoginComponent,
+    UserProfileComponent,
+    FriendsComponent
   ],
   imports: [
     BrowserModule,
