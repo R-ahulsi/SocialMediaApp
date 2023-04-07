@@ -1,0 +1,96 @@
+<div class="upload-photo-container">
+    <div class="upload-photo-header">
+      <h2 class="upload-photo-title">Upload Photo</h2>
+    </div>
+    <div class="upload-photo-buttons">
+        <button class="cancel-btn">Cancel</button>
+      </div>
+    <div class="upload-photo-content">
+      <div class="upload-photo-choose">
+        <button class="upload-photo-choose-btn">Choose Photo</button>
+      </div>
+      <div class="upload-photo-form">
+        <form>
+          <label>Caption:</label>
+          <input type="text" name="caption"><br>
+          <label>Album:</label>
+          <input type="text" name="album"><br>
+          <label>Tags:</label>
+          <input type="text" name="tags"><br>
+        </form>
+      </div>
+    </div>
+    <div class="upload-photo-buttons">
+      <button class="upload-photo-post-btn">Post</button>
+    </div>
+  </div>
+  
+  <style>
+  .upload-photo-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    }
+  
+  .upload-photo-header {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    }
+  
+  .upload-photo-choose {
+    margin-bottom: 20px;
+    }
+  
+  .upload-photo-choose-btn {
+    padding: 125px 45px;
+    border: none;
+    background-color: #000;
+    color: #fff;
+    font-size: 18px;
+    cursor: pointer;
+    }
+  
+  .upload-photo-form label {
+    text-align: center;
+    }
+  
+  .upload-photo-form input {
+    margin-bottom: 10px;
+    padding: 5px;
+    }
+  
+  .upload-photo-buttons {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
+    }
+  
+    .cancel-btn {
+        position: absolute;
+        top: 15;
+        left: 15;
+        background-color: #000;
+        color: #fff;
+        font-size: 18px;
+        padding: 10px 20px;
+    }
+
+    .upload-photo-buttons:last-child {
+        position: absolute;
+        bottom: 15;
+        right: 15;
+    }
+
+  .upload-photo-post-btn {
+    padding: 10px 20px;
+    background-color: #000;
+    color: #fff;
+    font-size: 18px;
+    cursor: pointer;
+    }
+  </style>
