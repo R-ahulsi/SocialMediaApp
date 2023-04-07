@@ -8,6 +8,7 @@ import { SiteLeaderboardComponent } from './site-leaderboard/site-leaderboard.co
 import { NavigationBarComponent } from './navigation-bar/navigation-bar.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { LoginComponent } from './login/login.component';
+import { AlbumComponent } from './album/album.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { LoginComponent } from './login/login.component';
     SiteLeaderboardComponent,
     NavigationBarComponent,
     SignUpComponent,
-    LoginComponent
+    LoginComponent,
+    AlbumComponent
   ],
   imports: [
     BrowserModule,
