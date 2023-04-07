@@ -1,0 +1,32 @@
+<html>
+    <body>
+        <div class="container">
+            <img src="http://localhost:55676/assets/sampleimage.jpg" alt="" class="image" />
+
+            <div class="comments"> <!-- add ngFor here -->
+                <div class="comment">
+                    <div class="comment-author">person name</div>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac
+                    lectus ut nisl tempor faucibus a sit amet nulla.
+                </div>
+
+                <div class="comment">
+                    <div class="comment-author">person name</div>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac
+                    lectus ut nisl tempor faucibus a sit amet nulla.
+                </div>
+
+            </div>
+        </div>
+        <div class="tags"> <!-- add ngFor here -->
+            <a class="tag" href="">tag</a>
+            <a class="tag" href="">tag</a>
+            <a class="tag" href="">tag</a>
+        </div>
+        <div class="postButtons">
+            <span><button (click)="showLikes()">♥ likes</button></span>
+            <span class="button"><button (click)="addComment()">add comment</button></span>
+            <span *ngIf="userAccess" class="button"><button (click)="deletePost()">delete</button></span>
+        </div>
+    </body>
+</html>

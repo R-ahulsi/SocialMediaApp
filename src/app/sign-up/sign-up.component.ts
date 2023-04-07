@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 
 import { User } from '../User';
+import { SocialMediaService } from 'app/social-media.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -12,11 +13,16 @@ export class SignUpComponent {
   submitted=false;
   model = new User('','','','','','','','');
 
+  constructor (private socialMediaService: SocialMediaService) {}
+
   onSubmit() {
     //if email already in database
       //send message that user exists
+    //else if username is in database
+      //send message that username is taken
     //else
       //add user to database
+    this.socialMediaService.setUsername(this.model.user_id);
     this.submitted = true;
     
   }
