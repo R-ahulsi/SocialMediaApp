@@ -9,6 +9,7 @@ import { SiteLeaderboardComponent } from './site-leaderboard/site-leaderboard.co
 import { NavigationBarComponent } from './navigation-bar/navigation-bar.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { LoginComponent } from './login/login.component';
+import { UploadPhotoComponent } from './upload-photo/upload-photo.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { FriendsComponent } from './friends/friends.component';
 import { SinglePhotoComponent } from './single-photo/single-photo.component';
@@ -22,8 +23,9 @@ import { AddCommentComponent } from './add-comment/add-comment.component';
     NavigationBarComponent,
     SignUpComponent,
     LoginComponent,
+    UploadPhotoComponent,
     UserProfileComponent,
-    FriendsComponent
+    FriendsComponent,
     SinglePhotoComponent,
     LikesDialogComponent,
     AddCommentComponent
