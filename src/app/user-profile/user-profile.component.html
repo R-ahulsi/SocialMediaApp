@@ -1,0 +1,16 @@
+<h1>{{username}}</h1>
+<ul>
+    <li *ngFor="let album of albums">
+        <button type="button">
+            <span class="name">{{album.name}}</span>
+        </button>
+    </li>
+</ul>
+
+<app-friends></app-friends>
+
+<ul>
+    <li *ngFor="let friend of recommendedFriends">
+        <p>{{friend.user_id}}</p>
+    </li>
+</ul>
