@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "socialmediaapp-database": {
+      "hosting": {
+        "social-media-app": [
+          "socialmediaapp-database"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "socialmediaapp-database"
+  }
+}

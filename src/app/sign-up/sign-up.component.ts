@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { User } from '../User';
+import { User } from '../dto/User';
 import { SocialMediaService } from 'app/social-media.service';
 
 @Component({
