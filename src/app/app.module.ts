@@ -18,6 +18,7 @@ import { LikesDialogComponent } from './likes-dialog/likes-dialog.component';
 import { AddCommentComponent } from './add-comment/add-comment.component';
 
 import { HttpClientModule  } from '@angular/common/http';
+import { SearchPageComponent } from './search-page/search-page.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { HttpClientModule  } from '@angular/common/http';
     FriendsComponent,
     SinglePhotoComponent,
     LikesDialogComponent,
-    AddCommentComponent
+    AddCommentComponent,
+    SearchPageComponent
   ],
   imports: [
     BrowserModule,
