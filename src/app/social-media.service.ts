@@ -7,15 +7,12 @@ import { Photo } from './Photo';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class SocialMediaService {
+  private username = '';
 
-  private username = "";
-
-  constructor(
-    private http: HttpClient
-  ) { }
+  constructor(private http: HttpClient) {}
 
   //setting username
   setUsername(username: string): void {
@@ -60,9 +57,4 @@ export class SocialMediaService {
   /*getRecommendedFriends(): Observable<User[]> {
 
   }*/
-
-
-
-
-
 }
