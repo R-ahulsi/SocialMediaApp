@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { User } from '../User';
+import { User } from '../dto/User';
 import { SocialMediaService } from 'app/social-media.service';
 
 @Component({
@@ -11,7 +11,7 @@ import { SocialMediaService } from 'app/social-media.service';
 export class SignUpComponent {
   genders = ['M','F'];
   submitted=false;
-  model = new User('','','','','','','','');
+  model = new User('','','','','','','','',0);
 
   constructor (private socialMediaService: SocialMediaService) {}
 
@@ -28,6 +28,6 @@ export class SignUpComponent {
   }
 
   newUser() {
-    this.model = new User('','','','','','','','');
+    this.model = new User('','','','','','','','',0);
   }
 }
