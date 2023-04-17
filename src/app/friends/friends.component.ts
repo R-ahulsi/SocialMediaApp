@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { SocialMediaService } from 'app/social-media.service';
-import { User } from 'app/User';
+import { User } from 'app/dto/User';
 
 @Component({
   selector: 'app-friends',
