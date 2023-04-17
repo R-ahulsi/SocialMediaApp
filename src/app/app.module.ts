@@ -18,6 +18,7 @@ import { LikesDialogComponent } from './likes-dialog/likes-dialog.component';
 import { AddCommentComponent } from './add-comment/add-comment.component';
 
 import { HttpClientModule  } from '@angular/common/http';
+import { OtherUserProfileComponent } from './other-user-profile/other-user-profile.component';
 import { SearchPageComponent } from './search-page/search-page.component';
 import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
 import { environment } from '../environments/environment';
@@ -46,6 +47,7 @@ import { AngularFireModule } from '@angular/fire/compat';
     SinglePhotoComponent,
     LikesDialogComponent,
     AddCommentComponent,
+    OtherUserProfileComponent,
     SearchPageComponent
   ],
   imports: [
