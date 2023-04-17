@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { Album } from 'app/Album';
+import { Album } from 'app/dto/Album';
 import { SocialMediaService } from 'app/social-media.service';
-import { Photo } from 'app/Photo';
-import { User } from 'app/User';
+import { Photo } from 'app/dto/Photo';
+import { User } from 'app/dto/User';
 
 @Component({
   selector: 'app-user-profile',
@@ -28,7 +28,9 @@ export class UserProfileComponent {
   }
 
   getUsername(): void {
-    this.username = this.socialMediaService.getUsername();
+    this.socialMediaService.getUsername().then(
+        res => this.username = res
+    )
   }
 
   getFirstPhotos(): void {
