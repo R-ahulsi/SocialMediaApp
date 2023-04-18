@@ -1,0 +1,8 @@
+<h1 style="text-align: center;">Tag: {{tag}}</h1>
+
+<div class="container">
+  <div *ngFor="let photo of photos" class="image">
+    <img src="{{photo.data}}" alt="{{photo.caption}}">
+    <div class="caption">{{photo.caption}}</div>
+  </div>
+</div>

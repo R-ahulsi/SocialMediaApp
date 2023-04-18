@@ -18,9 +18,11 @@ import { getDownloadURL } from '@angular/fire/storage';
 
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class SocialMediaService {
+  private username = '';
+
 
   private username = "";
   db = getFirestore();
