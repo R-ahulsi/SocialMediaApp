@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { LikesDialogComponent } from 'app/likes-dialog/likes-dialog.component';
 import { DomSanitizer } from '@angular/platform-browser';
 import { AddCommentComponent } from 'app/add-comment/add-comment.component';
+import { SocialMediaService } from 'app/social-media.service';
 
 @Component({
   selector: 'app-single-photo',
@@ -16,9 +17,11 @@ export class SinglePhotoComponent {
     tags:string[] = [];
     likes:string[]= [];
     userAccess:boolean = true;
+    imagePath:string = "";
 
     constructor(public dialog:MatDialog,
-                private sanitizer: DomSanitizer) {}
+                private sanitizer: DomSanitizer,
+                private service: SocialMediaService) {}
 
     OnInit() {
         // check if the photo is yours before you get access to delete
@@ -36,6 +39,12 @@ export class SinglePhotoComponent {
 
     deletePost() {
         console.log("delete photo")
+        
+        var url = this.service.getPhotoData('mountains.jpg')
+        const img = document.getElementById('myimg')!
+        img.setAttribute('src', url);
+        //console.log(url)
+        // this.imagePath = this.service.getPhotoData('istockphoto-1172427455-612x612.jpg')
     }
 
     showLikes(): void {
