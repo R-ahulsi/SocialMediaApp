@@ -19,7 +19,6 @@ import { AddCommentComponent } from './add-comment/add-comment.component';
 
 import { HttpClientModule  } from '@angular/common/http';
 
-import { TagsComponent } from './tags/tags.component';
 import { OtherUserProfileComponent } from './other-user-profile/other-user-profile.component';
 import { SearchPageComponent } from './search-page/search-page.component';
 import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
@@ -34,6 +33,7 @@ import { providePerformance,getPerformance } from '@angular/fire/performance';
 import { provideRemoteConfig,getRemoteConfig } from '@angular/fire/remote-config';
 import { provideStorage,getStorage } from '@angular/fire/storage';
 import { AngularFireModule } from '@angular/fire/compat';
+import { TagsComponent } from './tag-images/tag-images.component';
 
 @NgModule({
   declarations: [

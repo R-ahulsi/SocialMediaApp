@@ -7,7 +7,7 @@
     </li>
 </ul>
 
-<app-friends [username]={{username}}></app-friends>
+<app-friends (username)='username'></app-friends>
 
 <ul>
     <li *ngFor="let friend of recommendedFriends">

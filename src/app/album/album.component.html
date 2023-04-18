@@ -4,14 +4,9 @@
     
  
     <div class="container">
-        <div class="image"></div>
-        <div class="image"></div>
-        <div class="image"></div>
-        <div class="image"></div>
-        <div class="image"></div>
-        <div class="image"></div>
-        <div class="image"></div>
-        <div class="image"></div>
+        <div class="image" *ngFor="let photo of photos">
+            <img [src]="photo.data" alt="{{ photo.caption }}">
+        </div>
     </div>
     
     <button class="delete">Delete</button>

@@ -1,12 +1,10 @@
 import { Component } from '@angular/core';
-import { Album } from 'app/Album';
+import { Album } from 'app/dto/Album';
 import { SocialMediaService } from 'app/social-media.service';
 
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
-import { Photo } from 'app/Photo';
-import { User } from 'app/User';
 
 @Component({
   selector: 'app-other-user-profile',
