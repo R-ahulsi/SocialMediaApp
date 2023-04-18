@@ -1,0 +1,91 @@
+<head>
+	<title>Search Page</title>
+</head>
+<body>
+    <h1>Search Page</h1>
+    <form>
+        <div class="container">
+            <div>
+                <input type="text" placeholder="Search...">
+                <select>
+                    <option value="comments">Comments</option>
+                    <option value="friends">Friends</option>
+                    <option value="photos">Photos</option>
+                    <option value="tags">Tags</option>
+                    <option value="album">Album</option>
+                </select>
+                <button type="submit">Search</button>
+                <h2>You May Also Like</h2>
+                <!-- Add recommended content here -->
+            </div>
+            <div class="popular-tags">
+                <h2>Popular Tags</h2>
+                <ul>
+                    <li><a href="#">Tag 1</a></li>
+                    <li><a href="#">Tag 2</a></li>
+                    <li><a href="#">Tag 3</a></li>
+                    <li><a href="#">Tag 4</a></li>
+                    <li><a href="#">Tag 5</a></li>
+                </ul>
+            </div>
+        </div>
+    </form>
+</body>
+<style>
+    body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        font-family: Arial;
+    }
+
+    h1 {
+        margin-top: -400;
+    }
+
+    input[type="text"] {
+        padding: 10px;
+        border-radius: 10px;
+        width: 300px;
+    }
+
+    select {
+        padding: 10px;
+        border-radius: 10px;
+        width: 150px;
+        margin-left: 10px;
+    }
+
+    h2 {
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+    li {
+        margin: 5px;
+    }
+
+    button {
+        padding: 10px;
+        background-color: #000;
+        color: #fff;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        margin-left: 10px;
+    }
+
+    .container {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: flex-start;
+        width: 100%;
+    }
+
+    .popular-tags {
+        margin-left: 20;
+    }
+</style>

@@ -9,6 +9,7 @@ export class User {
         public dob: string,
         public gender: string,
         public hometown: string,
+        public contribution: number
     ){}
     
 }
