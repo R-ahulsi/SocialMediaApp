@@ -276,6 +276,28 @@ export class SocialMediaService {
         return photos;
     }
 
+    async getAlbums():Promise<Album[]> {
+        var albums:Album[] = []
+
+        const q = query(this.albumsTable, where("user_id","==",this.username));
+
+        const querySnapshot = await getDocs(q);
+
+        var singleAlbum : Album = {
+            album_id: 0,
+            name: '',
+            user_id: '',
+            creation_date: '',
+        }
+
+        querySnapshot.forEach(doc =>
+            singleAlbum.user_id = doc.get('user_id'),
+            albums.push(singleAlbum)
+        )
+
+        return albums;
+    }
+
     getPhotoData(imageName: string):string { // TODO
         // const storage = getStorage();
         // var urlReturn : string = "";
