@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { SocialMediaService } from 'app/social-media.service';
+import { User } from 'app/dto/User';
 
 @Component({
   selector: 'app-site-leaderboard',
