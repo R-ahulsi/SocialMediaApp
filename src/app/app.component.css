@@ -1,0 +1,13 @@
+.flex-container {
+    display: flex;
+    justify-content: space-between;
+}
+  
+app-navigation-bar {
+    flex-basis: 30%;
+}
+
+router-outlet {
+    flex-basis: 70%;
+}
+
