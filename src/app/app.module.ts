@@ -33,6 +33,7 @@ import { providePerformance,getPerformance } from '@angular/fire/performance';
 import { provideRemoteConfig,getRemoteConfig } from '@angular/fire/remote-config';
 import { provideStorage,getStorage } from '@angular/fire/storage';
 import { AngularFireModule } from '@angular/fire/compat';
+import { SettingsComponent } from './settings/settings.component';
 import { TagsComponent } from './tag-images/tag-images.component';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 
@@ -51,10 +52,11 @@ import { AngularFireStorageModule } from '@angular/fire/compat/storage';
     SinglePhotoComponent,
     LikesDialogComponent,
     AddCommentComponent,
+    SearchPageComponent,
+    SettingsComponent
     TagsComponent,
     OtherUserProfileComponent,
     SearchPageComponent
-
   ],
   imports: [
     BrowserModule,
