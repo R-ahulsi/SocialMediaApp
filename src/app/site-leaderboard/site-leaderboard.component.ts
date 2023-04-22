@@ -28,4 +28,5 @@ export class SiteLeaderboardComponent {
         console.error('Error getting top users', error);
       });
   }
+
 }

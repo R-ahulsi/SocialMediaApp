@@ -34,4 +34,5 @@ export class AlbumComponent {
         console.error('Error deleting album', error);
       });
   }
+
 }

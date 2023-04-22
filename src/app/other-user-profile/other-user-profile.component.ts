@@ -30,14 +30,13 @@ export class OtherUserProfileComponent {
 
   getAlbums(): void {
     const username  = String(this.route.snapshot.paramMap.get('username'));
-    //this.socialMediaService.getAlbums(username)
-    //  .subscribe(albums => this.albums = albums);
+    this.socialMediaService.getOtherAlbums(username)
+      .then(albums => this.albums = albums);
   }
 
   getUsername(): void {
     const username  = String(this.route.snapshot.paramMap.get('username'));
     this.username = username;
-    //this.username = this.socialMediaService.getUsername();
   }
 
   addFriend(username: string): void {

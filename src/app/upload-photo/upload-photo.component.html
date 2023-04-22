@@ -7,21 +7,21 @@
       </div>
     <div class="upload-photo-content">
       <div class="upload-photo-choose">
-        <button class="upload-photo-choose-btn">Choose Photo</button>
+      <input type="file" class="upload-photo-choose-btn" (change)="setFile($event)" />Choose Photo
       </div>
       <div class="upload-photo-form">
         <form>
           <label>Caption:</label>
-          <input type="text" name="caption"><br>
+          <input type="text" name="caption" [(ngModel)]="caption"><br>
           <label>Album:</label>
-          <input type="text" name="album"><br>
+          <input type="text" name="album" [(ngModel)]="albumId"><br>
           <label>Tags:</label>
-          <input type="text" name="tags"><br>
+          <input type="text" name="tags" [(ngModel)]="tags"><br>
         </form>
       </div>
     </div>
     <div class="upload-photo-buttons">
-      <button class="upload-photo-post-btn">Post</button>
+      <button class="upload-photo-post-btn" (click)="onPost()">Post</button>
     </div>
   </div>
   
