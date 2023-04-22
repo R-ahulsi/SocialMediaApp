@@ -53,7 +53,7 @@ import { AngularFireStorageModule } from '@angular/fire/compat/storage';
     LikesDialogComponent,
     AddCommentComponent,
     SearchPageComponent,
-    SettingsComponent
+    SettingsComponent,
     TagsComponent,
     OtherUserProfileComponent,
     SearchPageComponent

@@ -13,8 +13,9 @@
       <tr *ngFor="let item of leaderboardData; let i = index">
         <td style="padding: 10px; text-align: left;"></td>
         <td style="border-bottom: 1px solid #ddd; padding: 8px; text-align: left;">{{ i + 1 }}</td>
-        <td style="border-bottom: 1px solid #ddd; padding: 8px; text-align: left;">{{ item.name }}</td>
-        <td style="border-bottom: 1px solid #ddd; padding: 8px; text-align: left;">{{ item.score }}</td>
+        <td style="border-bottom: 1px solid #ddd; padding: 8px; text-align: left;">{{ item }}</td>
+        <!-- <td style="border-bottom: 1px solid #ddd; padding: 8px; text-align: left;">{{ item.name }}</td>
+        <td style="border-bottom: 1px solid #ddd; padding: 8px; text-align: left;">{{ item.score }}</td> -->
       </tr>
     </tbody>
   </table>

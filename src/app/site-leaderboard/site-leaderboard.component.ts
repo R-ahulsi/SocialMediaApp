@@ -9,5 +9,16 @@ import { User } from 'app/dto/User';
 })
 export class SiteLeaderboardComponent {
   title = 'Site Leaderboard';
-  leaderboardData = this.socialMediaService.topUsers();
+
+  constructor(private socialMediaService: SocialMediaService) {}
+
+  leaderboardData:string[] =[];
+
+
+  ngOnInit() {
+    this.socialMediaService.topUsers().then(res => {
+        this.leaderboardData = res;
+    })
+  }
+
 }
