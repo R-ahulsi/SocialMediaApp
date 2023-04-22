@@ -9,14 +9,14 @@ import { UploadPhotoComponent } from './upload-photo/upload-photo.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 
 const routes: Routes = [
-  {path: '/login', component: LoginComponent},
-  {path: '/signup', component: SignUpComponent},
-  {path: '', redirectTo: '/login', pathMatch: 'full'},
-  {path: '/profile', component: UserProfileComponent},
-  {path: '/scoreboard', component: SiteLeaderboardComponent},
-  {path: '/upload', component: UploadPhotoComponent},
-  {path: '/friend/:username', component: OtherUserProfileComponent},
-  {path: '/search', component: SearchPageComponent}
+  {path: 'login', component: LoginComponent},
+  {path: 'signup', component: SignUpComponent},
+  {path: '', redirectTo: 'signup', pathMatch: 'full'},
+  {path: 'profile', component: UserProfileComponent},
+  {path: 'scoreboard', component: SiteLeaderboardComponent},
+  {path: 'upload', component: UploadPhotoComponent},
+  {path: 'friend/:username', component: OtherUserProfileComponent},
+  {path: 'search', component: SearchPageComponent}
 ];
 
 @NgModule({

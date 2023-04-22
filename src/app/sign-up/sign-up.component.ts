@@ -14,18 +14,25 @@ export class SignUpComponent {
   submitted=false;
   model = new User('','','','','','','','',0);
 
+  emailexists = false;
+  usernameexists = false;
+
   constructor (private socialMediaService: SocialMediaService,
     private router: Router) {}
 
   onSubmit() {
+
     //if email already in database
       //send message that user exists
-    if (this.socialMediaService.emailExists(this.model.email)) {
+    this.socialMediaService.emailExists(this.model.email).then(res => this.emailexists=res);
+    this.socialMediaService.usernameExists(this.model.user_id).then(res => this.usernameexists = res);
+    if (this.emailexists) {
 
     }
     //else if username is in database
       //send message that username is taken
-    else if (this.socialMediaService.usernameExists(this.model.user_id)) {
+    
+    else if (this.usernameexists) {
 
     }
     //else
