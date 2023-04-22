@@ -1,5 +1,6 @@
 import { Album } from 'app/dto/Album';
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Photo } from 'app/dto/Photo';
 import { SocialMediaService } from '../social-media.service';
 
@@ -11,9 +12,11 @@ import { SocialMediaService } from '../social-media.service';
 export class AlbumComponent {
   photos: Photo[] = [];
 
-  constructor(private socialMediaService: SocialMediaService) {}
-
+  constructor(private socialMediaService: SocialMediaService,
+              private route: ActivatedRoute) {}
+  
   ngOnInit(): void {
+    const album_id = String(this.route.snapshot.paramMap.get('album_id'));
     this.getImages();
   }
 

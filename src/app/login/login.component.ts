@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { SocialMediaService } from 'app/social-media.service';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-login',
@@ -8,14 +10,29 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent {
 
-  constructor(private router: Router) {}
+    email:string = ""
+    password:string = ""
 
-  login() {
-    // Code for handling the login process
-  }
+    constructor(private router: Router,
+                private service: SocialMediaService,
+                private cookie: CookieService) {}
 
-  signUp() {
-    // Navigate to the sign up page
-    this.router.navigate(['signup']);
-  }
+    login() {
+        // Code for handling the login process
+        this.service.login(this.email, this.password).then(res => {
+            if (res) {
+                this.service.getUsername(this.email).then(username => {
+                    this.cookie.set("username",username);
+                })
+                this.router.navigate(['/profile']);
+            }
+        })
+
+        console.log(this.cookie.get("username"))
+    }
+
+    signUp() {
+        // Navigate to the sign up page
+        this.router.navigate(['signup']);
+    }
 }

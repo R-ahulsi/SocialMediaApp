@@ -3,6 +3,7 @@ import { Album } from 'app/dto/Album';
 import { SocialMediaService } from 'app/social-media.service';
 import { Photo } from 'app/dto/Photo';
 import { User } from 'app/dto/User';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-user-profile',
@@ -15,7 +16,8 @@ export class UserProfileComponent {
   firstPhotos: Photo[] = [];
   recommendedFriends: User[] = [];
 
-  constructor(private socialMediaService: SocialMediaService) {}
+  constructor(private socialMediaService: SocialMediaService,
+              private cookie: CookieService) {}
 
   ngOnInit(): void {
     this.getAlbums();
@@ -27,9 +29,7 @@ export class UserProfileComponent {
   }
 
   getUsername(): void {
-    this.socialMediaService.getUsername("").then(
-        res => this.username = res
-    )
+    this.username = this.cookie.get("username")
   }
 
   getFirstPhotos(): void {

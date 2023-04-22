@@ -51,8 +51,8 @@ export class SocialMediaService {
     this.username = username;
   }
 
-  async getUsername(user_id:string): Promise<string> {
-    const username = query(this.usersTable, where("user_id", "==", user_id))
+  async getUsername(email:string): Promise<string> {
+    const username = query(this.usersTable, where("email", "==", email))
 
     const querySnapshot = await getDocs(username);
 

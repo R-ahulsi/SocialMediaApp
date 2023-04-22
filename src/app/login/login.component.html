@@ -1,7 +1,7 @@
 <h1 style="text-align: center;">Login</h1>
 
 <div style="text-align: center;">
-  <label for="email">Email: </label>
+  <!-- <label for="email">Email: </label>
   <input type="text" id="email" name="email" class="input-box">
 
   <br>
@@ -14,5 +14,16 @@
   <br>
 
   <button style="margin:5px;">Login</button> 
-<button style="margin:5px;">Sign up</button> 
+  <button style="margin:5px;">Sign up</button>  -->
+
+
+  <form (ngSubmit)="login()" #userForm="ngForm">
+    <label for="email">Email:</label><br>
+        <input type="email" id="email" required [(ngModel)]="email" name="email" #name="ngModel"><br>
+    
+        <label for="password">Password:</label><br>
+        <input type="text" id="password" required [(ngModel)]="password" name="password" #name="ngModel"><br>
+        <button type="submit">Log in</button>
+        <a routerLink="/signup">Sign up</a>
+    </form>
 </div>
