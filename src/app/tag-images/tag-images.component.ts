@@ -9,5 +9,12 @@ import { SocialMediaService } from 'app/social-media.service';
 })
 export class TagsComponent {
   photos: Photo[] = [];
+
+  constructor(private socialMediaService: SocialMediaService) {}
+
+  ngOnInit(): void {
+    this.getImages();
+  }
+
   tag: string = 'test tag';
 }
