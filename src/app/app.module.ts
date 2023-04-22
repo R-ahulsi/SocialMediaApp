@@ -19,6 +19,7 @@ import { AddCommentComponent } from './add-comment/add-comment.component';
 
 import { HttpClientModule  } from '@angular/common/http';
 import { SearchPageComponent } from './search-page/search-page.component';
+<<<<<<< Updated upstream
 import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
 import { environment } from '../environments/environment';
 import { provideAnalytics,getAnalytics,ScreenTrackingService,UserTrackingService } from '@angular/fire/analytics';
@@ -31,6 +32,9 @@ import { providePerformance,getPerformance } from '@angular/fire/performance';
 import { provideRemoteConfig,getRemoteConfig } from '@angular/fire/remote-config';
 import { provideStorage,getStorage } from '@angular/fire/storage';
 import { AngularFireModule } from '@angular/fire/compat';
+=======
+import { SettingsComponent } from './settings/settings.component';
+>>>>>>> Stashed changes
 
 @NgModule({
   declarations: [
@@ -46,7 +50,8 @@ import { AngularFireModule } from '@angular/fire/compat';
     SinglePhotoComponent,
     LikesDialogComponent,
     AddCommentComponent,
-    SearchPageComponent
+    SearchPageComponent,
+    SettingsComponent
   ],
   imports: [
     BrowserModule,
