@@ -18,7 +18,6 @@ export class AlbumComponent {
     }
   
     getImages(): void {
-      // Call the service to get the images
       this.socialMediaService.getAllPhotos()
     }
 }

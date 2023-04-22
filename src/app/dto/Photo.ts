@@ -1,7 +1,7 @@
 export class Photo {
 
     constructor(
-        public photo_id: number,
+        public photo_id: string,
         public data: string,
         public user_id: string,
         public caption: string,

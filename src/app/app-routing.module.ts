@@ -4,6 +4,7 @@ import { LoginComponent } from './login/login.component';
 import { OtherUserProfileComponent } from './other-user-profile/other-user-profile.component';
 import { SearchPageComponent } from './search-page/search-page.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
+import { SinglePhotoComponent } from './single-photo/single-photo.component';
 import { SiteLeaderboardComponent } from './site-leaderboard/site-leaderboard.component';
 import { UploadPhotoComponent } from './upload-photo/upload-photo.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
