@@ -1,14 +1,12 @@
 <h2>Friends</h2>
 <ul>
-    <li *ngFor="let friend of friends">
-        <p>{{friend.user_id}}</p>
-    </li>
+    <a *ngFor="let friend of friending" routerLink="/friend/{{friend.friended_user}}">{{friend.friended_user}}</a>
+
 </ul>
 <h2>Friended</h2>
 <ul>
-    <li *ngFor="let friend of friended">
-        <p>{{friend.user_id}}</p>
-    </li>
+    <a *ngFor="let friend of friended" routerLink="/friend/{{friend.friending_user}}">{{friend.friending_user}}</a>
+
 </ul>
 
 

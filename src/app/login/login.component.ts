@@ -22,13 +22,13 @@ export class LoginComponent {
         this.service.login(this.email, this.password).then(res => {
             if (res) {
                 this.service.getUsername(this.email).then(username => {
-                    this.cookie.set("username",username);
+                    this.cookie.set("user_id",username);
                 })
                 this.router.navigate(['/profile']);
             }
         })
 
-        console.log(this.cookie.get("username"))
+        console.log(this.cookie.get("user_id"))
     }
 
     signUp() {

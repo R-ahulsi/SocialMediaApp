@@ -29,7 +29,7 @@ export class UserProfileComponent {
   }
 
   getUsername(): void {
-    this.username = this.cookie.get("username")
+    this.username = this.cookie.get("user_id")
   }
 
   getFirstPhotos(): void {

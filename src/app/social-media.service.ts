@@ -18,6 +18,7 @@ import { getDownloadURL } from '@angular/fire/storage';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
+import { CookieService } from 'ngx-cookie-service';
 
 
 
@@ -25,7 +26,7 @@ import { AngularFireDatabase } from '@angular/fire/compat/database';
   providedIn: 'root',
 })
 export class SocialMediaService {
-  private username = '';
+  private username = this.cookie.get('username');
 
 
   db = getFirestore();
@@ -43,12 +44,13 @@ export class SocialMediaService {
     private http: HttpClient,
     private store: AngularFirestore,
     private storage: AngularFireStorage,
-    private firebase: AngularFireDatabase
+    private firebase: AngularFireDatabase,
+    private cookie: CookieService
   ) {  }
 
   //setting username
   setUsername(username: string): void {
-    this.username = username;
+    this.username = this.cookie.get('user_id');
   }
 
   async getUsername(email:string): Promise<string> {
@@ -301,10 +303,13 @@ export class SocialMediaService {
             creation_date: '',
         }
 
-        querySnapshot.forEach(doc =>
-            singleAlbum.user_id = doc.get('user_id'),
+        querySnapshot.forEach(doc => {
+            singleAlbum.user_id = doc.get('user_id')
+            singleAlbum.album_id = doc.get('album_id')
+            singleAlbum.creation_date = doc.get('creation_date')
+            singleAlbum.name = doc.get('name')
             albums.push(singleAlbum)
-        )
+        })
 
         return albums;
     }
