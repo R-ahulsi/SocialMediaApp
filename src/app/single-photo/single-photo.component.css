@@ -1,17 +1,18 @@
 .container {
-    width: 100%;
-    height: auto;
     display: flex;
+    overflow-y: hidden;
+    max-height: 700px;
 }
 
 .image {
-    width: 70%;
+    flex-shrink: 0;
+    margin-right: 10px; 
 }
 
 .comments {
-    width: 100%;
-    padding: 20px;
-    overflow: auto;
+    flex-grow: 1;
+    overflow-y: scroll;
+
 }
 .comment {
     margin-bottom: 10px;

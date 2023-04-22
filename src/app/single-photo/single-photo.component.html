@@ -4,10 +4,12 @@
             <!-- <img id="myimg" src="" alt="" class="image" /> -->
             <img src={{imageUrl}} alt="">
 
-            <div *ngFor="let comment of comments" class="comments">
-                <div class="comment">
-                    <div class="comment-author">{{comment.user_id}}</div>
-                    {{comment.text}}
+            <div class="comments">
+                <div *ngFor="let comment of comments">
+                    <div class="comment">
+                        <div class="comment-author">{{comment.user_id}}</div>
+                        {{comment.text}}
+                    </div>
                 </div>
             </div>
         </div>

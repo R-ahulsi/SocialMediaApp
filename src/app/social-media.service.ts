@@ -608,7 +608,7 @@ export class SocialMediaService {
 
         let querySnapshot = await getDocs(q);
 
-        var likes:number = -1;
+        var likes:number = 0;
         querySnapshot.forEach(doc => likes++ )
 
         return likes;

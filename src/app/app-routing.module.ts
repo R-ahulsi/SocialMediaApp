@@ -16,7 +16,7 @@ const routes: Routes = [
   {path: 'scoreboard', component: SiteLeaderboardComponent},
   {path: 'upload', component: UploadPhotoComponent},
   {path: 'friend:username', component: OtherUserProfileComponent},
-  { path: 'singlephoto', component:SinglePhotoComponent }
+  {path: 'singlephoto', component:SinglePhotoComponent }
 ];
 
 @NgModule({
