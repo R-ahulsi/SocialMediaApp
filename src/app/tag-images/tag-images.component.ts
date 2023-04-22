@@ -13,7 +13,7 @@ export class TagsComponent {
   constructor(private socialMediaService: SocialMediaService) {}
 
   ngOnInit(): void {
-    this.getImages();
+    // this.getImages();
   }
 
   tag: string = 'test tag';

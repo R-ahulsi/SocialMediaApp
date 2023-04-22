@@ -1,9 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { LikesDialogComponent } from 'app/likes-dialog/likes-dialog.component';
 import { DomSanitizer } from '@angular/platform-browser';
 import { AddCommentComponent } from 'app/add-comment/add-comment.component';
 import { SocialMediaService } from 'app/social-media.service';
+import { Observable } from 'rxjs';
+import { Photo } from 'app/dto/Photo';
+import { Comment } from 'app/dto/Comment';
+import { Tag } from 'app/dto/Tag';
 
 @Component({
   selector: 'app-single-photo',
@@ -13,51 +17,76 @@ import { SocialMediaService } from 'app/social-media.service';
 export class SinglePhotoComponent {
 
     image:Blob | undefined;
-    comments:string[] = []; // will probably need a comment object with commenter name and comment
+    comments:Comment[] = []; // will probably need a comment object with commenter name and comment
     tags:string[] = [];
-    likes:string[]= [];
+    likes:number = -1;
     userAccess:boolean = true;
     imagePath:string = "";
 
+    imageUrl: string | undefined;
+    @Input() photo_id: string = ""; // TODO: verify photo_id is passed in
+    @Input() user_id: string = ""; //TODO: verify user_id is passed in
+
+
     constructor(public dialog:MatDialog,
-                private sanitizer: DomSanitizer,
                 private service: SocialMediaService) {}
 
-    OnInit() {
+    ngOnInit() {
         // check if the photo is yours before you get access to delete
         // this.userAccess = false;
+        this.getImage()
+        this.getComments()
+        this.getTags()
+        this.getLikes()
     }
 
     // potential methods to get data from database
-    getImage() {}
+    getImage() {
+        this.service.getPhotoData(this.photo_id).then(
+            res => this.imageUrl = res
+        )
+    }
 
-    getComments() {}
+    getComments() {
+        this.service.getCommentsForPhoto(this.photo_id).then(res =>
+            this.comments = res
+        )
+    }
 
-    getTags() {}
+    getTags() {
+        this.service.getTagsForPhoto(this.photo_id).then(res =>
+            this.tags = res
+        )
+    }
 
-    getLikes() {}
+    getLikes() {
+        this.service.getNumberOfLikes(this.photo_id).then(res =>
+            this.likes = res
+        )
+    }
 
     deletePost() {
-        console.log("delete photo")
-        
-        var url = this.service.getPhotoData('mountains.jpg')
-        const img = document.getElementById('myimg')!
-        img.setAttribute('src', url);
-        //console.log(url)
-        // this.imagePath = this.service.getPhotoData('istockphoto-1172427455-612x612.jpg')
+        this.service.deletePhoto(this.photo_id)
     }
 
     showLikes(): void {
         const dialogRef = this.dialog.open(LikesDialogComponent, {
           width: '300px',
-          height: '300px'
+          height: '300px',
+          data: {
+            photo_id: this.photo_id
+          }
         });
     }
 
     addComment(): void {
         const dialogRef = this.dialog.open(AddCommentComponent, {
           width: '500px',
-          height: '500px'
+          height: '500px',
+          data: {
+            photo_id: this.photo_id,
+            user_id: this.user_id
+          }
         });
     }
 

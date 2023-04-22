@@ -23,8 +23,7 @@ export class UserProfileComponent {
   }
 
   getAlbums(): void {
-    //this.socialMediaService.getAlbums()
-    //  .subscribe(albums => this.albums = albums);
+    this.socialMediaService.getAlbums().then(albums=>this.albums=albums);
   }
 
   getUsername(): void {

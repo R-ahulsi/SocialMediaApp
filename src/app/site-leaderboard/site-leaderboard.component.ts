@@ -9,5 +9,24 @@ import { User } from 'app/dto/User';
 })
 export class SiteLeaderboardComponent {
   title = 'Site Leaderboard';
-  leaderboardData = this.socialMediaService.topUsers();
+  leaderboardData: User[] = [];
+
+  ngOnInit(): void {
+    this.socialMediaService
+      .topUsers()
+      .then((userIds) => {
+        const promises = userIds.map((userId) => {
+          return this.socialMediaService.getUser(userId).then((user) => {
+            this.leaderboardData.push(user);
+          });
+        });
+        Promise.all(promises).catch((error) => {
+          console.error('Error getting user data', error);
+        });
+      })
+      .catch((error) => {
+        console.error('Error getting top users', error);
+      });
+  }
+
 }
