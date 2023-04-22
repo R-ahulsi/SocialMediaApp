@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { SocialMediaService } from 'app/social-media.service';
 import { User } from 'app/dto/User';
 
@@ -8,6 +8,9 @@ import { User } from 'app/dto/User';
   styleUrls: ['./friends.component.css']
 })
 export class FriendsComponent {
+
+  @Input() username?: string;
+
   friends: User[] = [];
   friended: User[] = [];
 
@@ -19,13 +22,19 @@ export class FriendsComponent {
   }
 
   getFriends(): void {
-    //this.socialMediaService.getFriends()
+    const userid = this.username;
+    if (userid!=undefined) {
+    //this.socialMediaService.getFriends(userid)
     //  .subscribe(friends => this.friends = friends);
+    }
   }
 
   getFriended(): void {
+    const userid = this.username;
+    if (userid!=undefined) {
     //this.socialMediaService.getFriended()
     //  .subscribe(friended => this.friended = friended);
+    }
   }
 
 

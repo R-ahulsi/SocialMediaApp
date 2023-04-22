@@ -7,10 +7,8 @@
     </li>
 </ul>
 
-<app-friends (username)='username'></app-friends>
+<app-friends [username]="username"></app-friends>
 
-<ul>
-    <li *ngFor="let friend of recommendedFriends">
-        <p>{{friend.user_id}}</p>
-    </li>
-</ul>
+<button type="button" (click)="addFriend(username)">Add Friend</button>
+
+

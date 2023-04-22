@@ -18,6 +18,8 @@ import { LikesDialogComponent } from './likes-dialog/likes-dialog.component';
 import { AddCommentComponent } from './add-comment/add-comment.component';
 
 import { HttpClientModule  } from '@angular/common/http';
+
+import { OtherUserProfileComponent } from './other-user-profile/other-user-profile.component';
 import { SearchPageComponent } from './search-page/search-page.component';
 <<<<<<< Updated upstream
 import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
@@ -32,9 +34,8 @@ import { providePerformance,getPerformance } from '@angular/fire/performance';
 import { provideRemoteConfig,getRemoteConfig } from '@angular/fire/remote-config';
 import { provideStorage,getStorage } from '@angular/fire/storage';
 import { AngularFireModule } from '@angular/fire/compat';
-=======
 import { SettingsComponent } from './settings/settings.component';
->>>>>>> Stashed changes
+import { TagsComponent } from './tag-images/tag-images.component';
 
 @NgModule({
   declarations: [
@@ -52,6 +53,9 @@ import { SettingsComponent } from './settings/settings.component';
     AddCommentComponent,
     SearchPageComponent,
     SettingsComponent
+    TagsComponent,
+    OtherUserProfileComponent,
+    SearchPageComponent
   ],
   imports: [
     BrowserModule,

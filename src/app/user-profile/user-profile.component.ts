@@ -28,7 +28,7 @@ export class UserProfileComponent {
   }
 
   getUsername(): void {
-    this.socialMediaService.getUsername().then(
+    this.socialMediaService.getUsername("").then(
         res => this.username = res
     )
   }
