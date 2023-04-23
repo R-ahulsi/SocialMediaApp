@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Router } from '@angular/router';
+import { DataService } from 'app/app.component';
 import { SocialMediaService } from 'app/social-media.service';
 import { CookieService } from 'ngx-cookie-service';
 
@@ -12,10 +13,13 @@ export class LoginComponent {
 
     email:string = ""
     password:string = ""
+    @Output() userLoggedIn = new EventEmitter<boolean>();
+    // userLoggedIn = false;
 
     constructor(private router: Router,
                 private service: SocialMediaService,
-                private cookie: CookieService) {}
+                private cookie: CookieService,
+                private internalService: DataService) {}
 
     login() {
         // Code for handling the login process
@@ -23,12 +27,15 @@ export class LoginComponent {
             if (res) {
                 this.service.getUsername(this.email).then(username => {
                     this.cookie.set("user_id",username);
+                    console.log(this.cookie.get("user_id"))
+
+                    // this.userLoggedIn.emit(true);
+                    this.internalService.setData(true);
+                    // this.userLoggedIn = true;
+                    this.router.navigate(['/profile'])
                 })
-                this.router.navigate(['/profile']);
             }
         })
-
-        console.log(this.cookie.get("user_id"))
     }
 
     signUp() {

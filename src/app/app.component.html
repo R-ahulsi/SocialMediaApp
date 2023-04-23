@@ -1,6 +1,6 @@
 <div class="flex-container">
     <div class="left">
-        <app-navigation-bar></app-navigation-bar>
+        <app-navigation-bar *ngIf="userLoggedIn" ></app-navigation-bar>
     </div>
     <div class="right">
         <router-outlet></router-outlet>
