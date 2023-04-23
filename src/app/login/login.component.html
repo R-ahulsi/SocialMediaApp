@@ -17,13 +17,13 @@
   <button style="margin:5px;">Sign up</button>  -->
 
 
-  <form (ngSubmit)="login()" #userForm="ngForm">
-    <label for="email">Email:</label><br>
+    <form (ngSubmit)="login()" #userForm="ngForm">
+        <label for="email">Email:</label><br>
         <input type="email" id="email" required [(ngModel)]="email" name="email" #name="ngModel"><br>
     
         <label for="password">Password:</label><br>
         <input type="text" id="password" required [(ngModel)]="password" name="password" #name="ngModel"><br>
         <button type="submit">Log in</button>
-        <a routerLink="/signup">Sign up</a>
+        <button routerLink="/signup">Sign up</button>
     </form>
 </div>
