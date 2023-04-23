@@ -1,6 +1,8 @@
 <h1>{{username}}</h1>
 <ul>
-    <a *ngFor="let album of albums" routerLink="/album/{{album.album_id}}">{{album.name}}</a>
+    <li *ngFor="let album of albums">
+        <a routerLink="/album/{{album.album_id}}">{{album.name}}</a>
+    </li>
 </ul>
 
 <button type="button" (click)="addAlbumClick()">Add Album</button>
@@ -9,7 +11,7 @@
 <div *ngIf="addAlbumClicked">
     <h3>Add Album</h3>
     <form (ngSubmit)="onSubmit()" #userForm="ngForm">
-        <label for="name">Username:</label><br>
+        <label for="name">Album Name:</label><br>
         <input type="text" id="name" required [(ngModel)]="newAlbum.name" name="name" #name="ngModel"><br>
         <button type="submit">Add</button>
     </form>

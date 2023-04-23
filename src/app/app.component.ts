@@ -11,7 +11,7 @@ import { BehaviorSubject } from 'rxjs';
 export class AppComponent {
   title = 'social-media-app';
 
-  userLoggedIn = false;
+  userLoggedIn: boolean | undefined;
 
   constructor(private cookie: CookieService,
               private internalService: DataService) {}
@@ -25,6 +25,12 @@ export class AppComponent {
     })
   }
 
+  ngOnChanges() {
+    if(this.cookie.get('user_id') != '') {
+        this.userLoggedIn = true;
+    }
+  }
+
 //   loginEvent(loginMessage: string) {
 //     loginMessage === "loggedin" ? this.userLoggedIn = true : this.userLoggedIn = false;
 //   }
@@ -33,6 +39,7 @@ export class AppComponent {
 @Injectable({
     providedIn: 'root'
 })
+
 export class DataService {
         private data = new BehaviorSubject<boolean>(false);
   

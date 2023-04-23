@@ -5,7 +5,7 @@ export class Photo {
         public data: string,
         public user_id: string,
         public caption: string,
-        public album_id: number,
+        public album_id: string,
         public date_posted: string
     ) {}
 }

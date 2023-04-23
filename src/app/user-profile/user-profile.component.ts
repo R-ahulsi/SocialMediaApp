@@ -24,8 +24,12 @@ export class UserProfileComponent {
               private cookie: CookieService) {}
 
   ngOnInit(): void {
-    this.getAlbums();
     this.getUsername();
+    this.getAlbums();
+  }
+
+  ngOnChanges() {
+    this.getAlbums();
   }
 
   addAlbumClick(): void {
@@ -39,10 +43,10 @@ export class UserProfileComponent {
     this.socialMediaService.createAlbum(this.newAlbum);
     this.addAlbumClicked=false;
     this.newAlbum.name="";
-  }
+}
 
   getAlbums(): void {
-    this.socialMediaService.getAlbums().then(albums=>this.albums=albums);
+    this.socialMediaService.getAlbums(this.username).then(albums=>this.albums=albums);
   }
 
   getUsername(): void {

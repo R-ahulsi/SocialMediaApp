@@ -1,4 +1,5 @@
 import { Component } from "@angular/core";
+import { Router } from "@angular/router";
 import { SocialMediaService } from "app/social-media.service";
 
 @Component({
@@ -13,7 +14,8 @@ export class UploadPhotoComponent {
     albumId = '';
     tags = '';
   
-    constructor(private service: SocialMediaService) {}
+    constructor(private service: SocialMediaService,
+                private router: Router) {}
   
     setFile(event: any){
       this.file = event;
@@ -29,6 +31,8 @@ export class UploadPhotoComponent {
         this.albumId = '';
         this.tags = '';
       }
+
+      this.router.navigate(['profile']);
     }
   }
 
