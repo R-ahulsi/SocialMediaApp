@@ -176,6 +176,22 @@ export class SocialMediaService {
         })
     }
 
+    async isFriended(friending:string, friended:string):Promise<boolean> {
+        const q = query(this.friendsTable, where("friending_user", "==", friending), where("friended_user","==",friended));
+    
+        const querySnapshot = await getDocs(q);
+    
+        // if (querySnapshot.empty) {
+        //     return false;
+        // }
+        
+        var retValue:boolean = false;
+        querySnapshot.forEach(doc => {
+            retValue = true;
+        })
+        return retValue;
+      }
+
     async getFriends(friending_user:string):Promise<Friendship[]> {
         const q = query(this.friendsTable, where("friending_user", "==", friending_user))
 

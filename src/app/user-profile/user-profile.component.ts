@@ -5,6 +5,7 @@ import { Photo } from 'app/dto/Photo';
 import { User } from 'app/dto/User';
 import { CookieService } from 'ngx-cookie-service';
 import * as uuid from 'uuid';
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'app-user-profile',
@@ -21,7 +22,8 @@ export class UserProfileComponent {
   newAlbum = new Album('','','','');
 
   constructor(private socialMediaService: SocialMediaService,
-              private cookie: CookieService) {}
+              private cookie: CookieService,
+              private router: Router) {}
 
   ngOnInit(): void {
     this.getUsername();
@@ -41,8 +43,17 @@ export class UserProfileComponent {
     this.newAlbum.creation_date = new Date().toISOString();
     this.newAlbum.user_id = this.username;
     this.socialMediaService.createAlbum(this.newAlbum);
+    this.getAlbums();
+    this.albums.forEach(album => {
+      console.log(album.name)
+    });
     this.addAlbumClicked=false;
-    this.newAlbum.name="";
+    this.newAlbum=new Album('','','','');
+    
+    //window.location.reload();
+    //this.getAlbums();
+    //this.router.navigate(['/profile']);
+    
 }
 
   getAlbums(): void {
