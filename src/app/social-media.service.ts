@@ -246,6 +246,30 @@ export class SocialMediaService {
         return topUsers;
     }
 
+    /**
+    * 
+    * Updating user data 
+    * 
+    **/
+
+    async updateUserInfo(firstName: string, lastName: string, password: string, hometown: string, dob: Date, gender: string){
+        const userId = this.cookie.get('user_id');
+
+        const userInfo = query(this.usersTable, where("user_id", "==", userId))
+
+        const querySnapshot = await getDocs(userInfo);
+
+        querySnapshot.forEach(doc => {
+            updateDoc(doc.ref, { 
+              first_name: firstName,
+              last_name: lastName,
+              password: password,
+              hometown: hometown,
+              DOB: dob,
+              gender: gender
+            });
+        });
+    }
 
     /**
    * 

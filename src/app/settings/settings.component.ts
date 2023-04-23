@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { SocialMediaService } from 'app/social-media.service';
 
 @Component({
   selector: 'app-settings',
@@ -7,24 +8,20 @@ import { Component } from '@angular/core';
 })
 export class SettingsComponent {
   model = {
-    email: '',
+    change_fname: '',
+    change_lname: '',
     password: '',
-    first_name: '',
-    last_name: '',
-    dob: '',
     hometown: '',
+    dob: new Date(),
     gender: ''
   };
 
-  //form submission
-  onSubmit() {
-    // TODO: Implement backend code
-    console.log(this.model); // test
-  }
+  genders = ['M', 'F'];
 
-  //logout button click
-  onLogout() {
-    // TODO: Implement backend code
-    console.log('Logged out'); // test
+  constructor(private socialMediaService: SocialMediaService) {}
+  
+  onSubmit() {
+    this.socialMediaService.updateUserInfo(this.model.change_fname, this.model.change_lname, this.model.password, 
+                                            this.model.hometown, this.model.dob, this.model.gender);
   }
 }
