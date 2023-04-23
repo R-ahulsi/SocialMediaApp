@@ -19,6 +19,7 @@ import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
 import { CookieService } from 'ngx-cookie-service';
+import * as uuid from 'uuid';
 
 
 
@@ -26,7 +27,7 @@ import { CookieService } from 'ngx-cookie-service';
   providedIn: 'root',
 })
 export class SocialMediaService {
-  private username = this.cookie.get('username');
+  private username = this.cookie.get('user_id');
 
 
   db = getFirestore();
@@ -73,15 +74,23 @@ export class SocialMediaService {
    */
 
   async emailExists(email:string):Promise<boolean> {
-    const usernameTableRef = query(this.usersTable, where("email", "==", email))
+    // const usernameTableRef = query(this.usersTable, where("email", "==", email))
 
-    const querySnapshot = await getDocs(usernameTableRef);
+    // const querySnapshot = await getDocs(usernameTableRef);
 
-    if (querySnapshot.empty) {
-        return false;
-    }
+    // if (querySnapshot.empty) {
+    //     return false;
+    // }
     
-    return true;
+    // return true;
+    const q = query(this.usersTable, where("email","==",email))
+    const querySnapshot = await getDocs(q);
+
+    var retValue = false;
+    querySnapshot.forEach(doc => {
+        retValue = true;
+    })
+    return retValue;
   }
 
   async usernameExists(username:string):Promise<boolean> {
@@ -89,11 +98,15 @@ export class SocialMediaService {
 
     const querySnapshot = await getDocs(usernameTableRef);
 
-    if (querySnapshot.empty) {
-        return false;
-    }
+    // if (querySnapshot.empty) {
+    //     return false;
+    // }
     
-    return true;
+    var retValue:boolean = false;
+    querySnapshot.forEach(doc => {
+        retValue = true;
+    })
+    return retValue;
   }
 
   createUser(newUser: User) {
@@ -105,7 +118,8 @@ export class SocialMediaService {
         hometown: newUser.hometown,
         last_name: newUser.last_name,
         password: newUser.password,
-        user_id: newUser.user_id
+        user_id: newUser.user_id,
+        contribution:newUser.contribution
     })
   }
 
@@ -272,7 +286,7 @@ export class SocialMediaService {
             data: '',
             user_id: '',
             caption: '',
-            album_id: 0,
+            album_id: '',
             date_posted: ''
         }
 
@@ -289,15 +303,51 @@ export class SocialMediaService {
         return photos;
     }
 
-    async getAlbums():Promise<Album[]> {
+    async getPhotosByAlbumId(album_id:string) {
+        const q = query(this.photosTable, where("album_id","==",album_id))
+        const querySnapshot = await getDocs(q)
+
+        var photos:Photo[] = []
+
+        var photo:Photo = {
+            photo_id: '',
+            data: '',
+            user_id: '',
+            caption: '',
+            album_id: '',
+            date_posted: ''
+        }
+        querySnapshot.forEach(doc => {
+            photo.photo_id = doc.get('photo_id')
+            photo.data = doc.get('data')
+            photo.user_id = doc.get('user_id')
+            photo.caption = doc.get('caption')
+            photo.album_id = doc.get('album_id')
+            photo.date_posted = doc.get('date_posted')
+            photos.push(photo)
+
+            photo = {
+                photo_id: '',
+                data: '',
+                user_id: '',
+                caption: '',
+                album_id: '',
+                date_posted: ''
+            }
+        })
+
+        return photos;
+    }
+
+    async getAlbums(user_id:string):Promise<Album[]> {
         var albums:Album[] = []
 
-        const q = query(this.albumsTable, where("user_id","==",this.username));
+        const q = query(this.albumsTable, where("user_id","==",user_id));
 
         const querySnapshot = await getDocs(q);
 
         var singleAlbum : Album = {
-            album_id: 0,
+            album_id: '',
             name: '',
             user_id: '',
             creation_date: '',
@@ -309,6 +359,13 @@ export class SocialMediaService {
             singleAlbum.creation_date = doc.get('creation_date')
             singleAlbum.name = doc.get('name')
             albums.push(singleAlbum)
+
+            singleAlbum = {
+                album_id: '',
+                name: '',
+                user_id: '',
+                creation_date: '',
+            }
         })
 
         return albums;
@@ -322,7 +379,7 @@ export class SocialMediaService {
         const querySnapshot = await getDocs(q);
 
         var singleAlbum : Album = {
-            album_id: 0,
+            album_id: '',
             name: '',
             user_id: '',
             creation_date: '',
@@ -334,6 +391,19 @@ export class SocialMediaService {
         )
 
         return albums;
+    }
+
+    async getAlbumUserID(album_id:string):Promise<string> {
+        const q = query(this.albumsTable, where("album_id", "==", album_id))
+
+        let querySnapshot = await getDocs(q);
+
+        var user_id:string = ""
+        querySnapshot.forEach(res => {
+            user_id = res.get('user_id')
+        })
+
+        return user_id;
     }
 
     async getPhotoData(photo_id: string) {
@@ -359,6 +429,19 @@ export class SocialMediaService {
    */
 
 
+    async getCaption(photo_id:string) {
+        const q = query(this.photosTable, where("photo_id","==", photo_id))
+        const querySnapshot = await getDocs(q);
+
+        var caption:string = "";
+        querySnapshot.forEach(doc => {
+            caption = doc.get('caption')
+        })
+
+        return caption;
+    }
+
+
     createAlbum(album:Album) {
         this.store.collection('Albums').add({
             album_id: album.album_id,
@@ -369,18 +452,18 @@ export class SocialMediaService {
 
     }
 
-    async postPhoto(path: string, file:any, caption: string, album: string, tags:string) { // TODO
+    async postPhoto(path: string, file:any, caption: string, album: string, tags:string) {
         let reader = new FileReader();
         const upload = await this.storage.upload(path, file); // second param is the image file
 
-        var album_id:number = -1;
+        var album_id:string = "";
         this.getAlbumId(album).then(res => album_id = res)
 
         upload.ref.getDownloadURL().then(res =>{
             this.createPhoto({
-                photo_id: '', // TODO randomized number? GUID?
+                photo_id: uuid.v4().toString(),
                 data: res, 
-                user_id: '', // TODO get user_id from upload photo?
+                user_id: this.username,
                 caption: caption,
                 album_id: album_id,
                 date_posted: new Date().toISOString()
@@ -388,7 +471,7 @@ export class SocialMediaService {
         })
 
         // increase contribution
-        this.increaseContributionScore(""); //TODO: need to get user_id somehow
+        this.increaseContributionScore(this.username);
     }
 
     async getAlbumId(name:string) {
@@ -396,12 +479,25 @@ export class SocialMediaService {
 
         let querySnapshot = await getDocs(q);
 
-        var albumId:number = -1
+        var albumId:string = ""
         querySnapshot.forEach(res => {
             albumId = res.get('album_id')
         })
 
         return albumId;
+    }
+
+    async getAlbumName(album_id:string) {
+        const q = query(this.albumsTable, where("album_id", "==", album_id))
+
+        let querySnapshot = await getDocs(q);
+
+        var name:string = ""
+        querySnapshot.forEach(res => {
+            name = res.get('name')
+        })
+
+        return name;
     }
 
     createTag(tag:Tag) {
@@ -441,8 +537,8 @@ export class SocialMediaService {
         let querySnapshot = await getDocs(q);
         
         querySnapshot.forEach(album =>{
-            this.deletePhotosInAlbum(album.get('album_id')) // TODO: Is this right???
-            deleteDoc(doc(this.db, 'Album', album.id))
+            this.deletePhotosInAlbum(album.get('album_id'))
+            this.store.collection('Albums').doc(album.id.toString()).delete();
         });
     }
 
@@ -504,7 +600,7 @@ export class SocialMediaService {
     }
 
     async selectAllPhotosWithTag(tag: string) {
-        var photoIds:number[] = []
+        var photoIds:string[] = []
         const q = query(this.tagsTable, where("word", "==",tag))
         const querySnapshot = await getDocs(q);
 
@@ -526,7 +622,7 @@ export class SocialMediaService {
     }
 
     async selectUsersPhotosWithTag(user_id:string, tag:string) {
-        var photoIds:number[] = []
+        var photoIds:string[] = []
         const q = query(this.tagsTable, where("word", "==",tag))
         const querySnapshot = await getDocs(q);
 
@@ -693,7 +789,7 @@ export class SocialMediaService {
             }
         })
 
-        return this.sortArrays(commentCount, commentCountNames); // TOP 10 elements in array give 10 top user_ids that comments this comment
+        return this.sortArrays(commentCount, commentCountNames); // TOP 10 elements in array give 10 top user_ids that commented this comment
     }
 
 
@@ -851,8 +947,8 @@ export class SocialMediaService {
 
         let querySnapshot = await getDocs(q);
         
-        querySnapshot.forEach(photo =>
-            deleteDoc(doc(this.db, 'Album', photo.id))
+        querySnapshot.forEach(async photo =>
+            await deleteDoc(doc(this.db, 'Album', photo.id))
         );
     }
 

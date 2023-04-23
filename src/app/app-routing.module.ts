@@ -4,6 +4,7 @@ import { AlbumComponent } from './album/album.component';
 import { LoginComponent } from './login/login.component';
 import { OtherUserProfileComponent } from './other-user-profile/other-user-profile.component';
 import { SearchPageComponent } from './search-page/search-page.component';
+import { SettingsComponent } from './settings/settings.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { SinglePhotoComponent } from './single-photo/single-photo.component';
 import { SiteLeaderboardComponent } from './site-leaderboard/site-leaderboard.component';
@@ -19,8 +20,9 @@ const routes: Routes = [
   {path: 'upload', component: UploadPhotoComponent},
   {path: 'friend/:username', component: OtherUserProfileComponent},
   {path: 'search', component: SearchPageComponent},
-  {path: 'singlephoto', component: SinglePhotoComponent},
-  {path: 'album/:album_id', component: AlbumComponent}
+  {path: 'singlephoto/:photo_id', component: SinglePhotoComponent},
+  {path: 'album/:album_id', component: AlbumComponent},
+  {path: 'settings', component: SettingsComponent}
 ];
 
 @NgModule({

@@ -1,4 +1,3 @@
-<h1>Settings</h1>
 <style>
     form {
         display: flex;
@@ -19,6 +18,7 @@
         margin-bottom: 5px;
     }
 
+    input[type="email"],
     input[type="text"],
     input[type="date"],
     select {
@@ -46,12 +46,9 @@
     button[type="apply_changes"]:hover {
         background-color: #3e8e41;
     }
-
-    button[type="submit"] {
-        background-color: #f44336;
-    }
 </style>
 <form (ngSubmit)="onSubmit()" #userForm="ngForm">
+    <h1>Settings</h1>
     <label for="change_email">Change Email:</label><br>
     <input type="email" id="change_email" required [(ngModel)]="model.email" name="change_email" #name="ngModel"><br>
 
@@ -76,4 +73,4 @@
 
     <button type="apply_changes">Apply Changes</button>
 </form>
-    <button type="submit">Log out</button>
+    

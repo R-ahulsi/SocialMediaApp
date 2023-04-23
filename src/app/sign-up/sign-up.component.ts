@@ -3,6 +3,8 @@ import { Component } from '@angular/core';
 import { User } from '../dto/User';
 import { SocialMediaService } from 'app/social-media.service';
 import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
+import { DataService } from 'app/app.component';
 
 @Component({
   selector: 'app-sign-up',
@@ -17,34 +19,73 @@ export class SignUpComponent {
   emailexists = false;
   usernameexists = false;
 
+  emailAlreadyInUse:boolean = false
+
   constructor (private socialMediaService: SocialMediaService,
-    private router: Router) {}
+               private router: Router,
+               private cookie: CookieService,
+               private internalService: DataService) {}
 
-  onSubmit() {
+//   onSubmit() {
 
-    //if email already in database
-      //send message that user exists
-    this.socialMediaService.emailExists(this.model.email).then(res => this.emailexists=res);
-    this.socialMediaService.usernameExists(this.model.user_id).then(res => this.usernameexists = res);
-    if (this.emailexists) {
-
-    }
-    //else if username is in database
-      //send message that username is taken
+//     //if email already in database
+//     //send message that user exists
+//     this.socialMediaService.emailExists(this.model.email).then(res => this.emailexists=res);
+//     this.socialMediaService.usernameExists(this.model.user_id).then(res => this.usernameexists = res);
+//     if (this.emailexists) {
+//         // call alert dialog
+//         console.log('email exists')
+//     }
+//     //else if username is in database
+//     //send message that username is taken
     
-    else if (this.usernameexists) {
+//     else if (this.usernameexists) {
+//         console.log('username exists')
+//     }
+//     //else
+//     //add user to database
+//     else {
+//       this.socialMediaService.createUser(this.model);
+//       this.socialMediaService.setUsername(this.model.user_id);
+//       this.submitted = true;
+//       this.cookie.set('user_id',this.model.user_id);
+//       this.router.navigate(['/profile']);
+//     }
+//   }
 
-    }
-    //else
-      //add user to database
-    else {
-      this.socialMediaService.createUser(this.model);
-      this.socialMediaService.setUsername(this.model.user_id);
-      this.submitted = true;
-      this.router.navigate(['/profile']);
-    }
-    
-    
+ngOnInit() {
+    setInterval(() => {
+      this.emailAlreadyInUse = false;
+    }, 3000);
+}
+
+onSubmit() {
+    this.socialMediaService.emailExists(this.model.email).then(res => {
+      this.emailexists=res;
+      if (this.emailexists) {
+        //whatever
+        console.log('email exists')
+        this.emailAlreadyInUse = true;
+        this.model = new User('','','','','','','','',0);
+      }
+      else {
+        this.socialMediaService.usernameExists(this.model.user_id).then(res => {
+          this.usernameexists = res;
+          if (this.usernameexists) {
+            // send message that username is taken
+            console.log('username exists')
+          }
+          else {
+            this.socialMediaService.createUser(this.model);
+            this.socialMediaService.setUsername(this.model.user_id);
+            this.submitted = true;
+            this.internalService.setData(true);
+            this.cookie.set('user_id',this.model.user_id)
+            this.router.navigate(['/profile']);
+          }
+        });
+      }
+    });
   }
 
   newUser() {

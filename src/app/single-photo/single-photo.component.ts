@@ -8,6 +8,8 @@ import { Observable } from 'rxjs';
 import { Photo } from 'app/dto/Photo';
 import { Comment } from 'app/dto/Comment';
 import { Tag } from 'app/dto/Tag';
+import { CookieService } from 'ngx-cookie-service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-single-photo',
@@ -16,31 +18,31 @@ import { Tag } from 'app/dto/Tag';
 })
 export class SinglePhotoComponent {
 
-    image:Blob | undefined;
-    comments:Comment[] = []; // will probably need a comment object with commenter name and comment
+    comments:Comment[] = [];
     tags:string[] = [];
     likes:number = -1;
     userAccess:boolean = true;
-    imagePath:string = "";
-
     imageUrl: string | undefined;
-    @Input() photo_id: string = ""; // TODO: verify photo_id is passed in
-    @Input() user_id: string = ""; //TODO: verify user_id is passed in
+    caption:string = "";
 
+    photo_id: string = ""; // TODO: verify photo_id is passed in
 
     constructor(public dialog:MatDialog,
-                private service: SocialMediaService) {}
+                private service: SocialMediaService,
+                private cookie: CookieService,
+                private route: ActivatedRoute) {}
 
     ngOnInit() {
         // check if the photo is yours before you get access to delete
         // this.userAccess = false;
+        this.photo_id = String(this.route.snapshot.paramMap.get('photo_id'))
         this.getImage()
         this.getComments()
         this.getTags()
         this.getLikes()
+        this.getCaption()
     }
 
-    // potential methods to get data from database
     getImage() {
         this.service.getPhotoData(this.photo_id).then(
             res => this.imageUrl = res
@@ -65,6 +67,12 @@ export class SinglePhotoComponent {
         )
     }
 
+    getCaption() {
+        this.service.getCaption(this.photo_id).then(res => 
+            this.caption = res
+        )
+    }
+
     deletePost() {
         this.service.deletePhoto(this.photo_id)
     }
@@ -85,13 +93,8 @@ export class SinglePhotoComponent {
           height: '500px',
           data: {
             photo_id: this.photo_id,
-            user_id: this.user_id
+            user_id: this.cookie.get('user_id')
           }
         });
-    }
-
-    getPhoto() {
-        // use sanitizer to locally host image
-        // https://stackblitz.com/edit/angular-display-base-64-image-url-domsanitizer?file=src%2Fapp%2Fapp.component.ts
     }
 }

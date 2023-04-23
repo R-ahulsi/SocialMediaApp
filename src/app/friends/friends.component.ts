@@ -3,6 +3,7 @@ import { SocialMediaService } from 'app/social-media.service';
 import { User } from 'app/dto/User';
 import { Friendship } from 'app/dto/Friend';
 import { CookieService } from 'ngx-cookie-service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-friends',
@@ -11,7 +12,7 @@ import { CookieService } from 'ngx-cookie-service';
 })
 export class FriendsComponent {
 
-  @Input() username?: string;
+  @Input() username: string = "";
 
   friending: Friendship[] = [];
   friended: Friendship[] = [];
@@ -29,7 +30,7 @@ export class FriendsComponent {
     // //this.socialMediaService.getFriends(userid)
     // //  .subscribe(friends => this.friends = friends);
     // }
-    this.socialMediaService.getFriends(this.cookie.get('user_id')).then(res => {
+    this.socialMediaService.getFriends(this.username).then(res => {
         this.friending = res
     })
   }
@@ -40,7 +41,7 @@ export class FriendsComponent {
     // //this.socialMediaService.getFriended()
     // //  .subscribe(friended => this.friended = friended);
     // }
-    this.socialMediaService.getFriended(this.cookie.get('user_id')).then(res => {
+    this.socialMediaService.getFriended(this.username).then(res => {
         this.friended = res
     })
   }

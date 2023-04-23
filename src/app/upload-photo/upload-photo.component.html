@@ -3,11 +3,10 @@
       <h2 class="upload-photo-title">Upload Photo</h2>
     </div>
     <div class="upload-photo-buttons">
-        <button class="cancel-btn">Cancel</button>
       </div>
     <div class="upload-photo-content">
       <div class="upload-photo-choose">
-      <input type="file" class="upload-photo-choose-btn" (change)="setFile($event)" />Choose Photo
+      <input type="file" class="upload-photo-choose-btn" (change)="setFile($event)" />
       </div>
       <div class="upload-photo-form">
         <form>
@@ -68,22 +67,6 @@
     justify-content: flex-end;
     align-items: center;
     width: 100%;
-    }
-  
-    .cancel-btn {
-        position: absolute;
-        top: 15;
-        left: 15;
-        background-color: #000;
-        color: #fff;
-        font-size: 18px;
-        padding: 10px 20px;
-    }
-
-    .upload-photo-buttons:last-child {
-        position: absolute;
-        bottom: 15;
-        right: 15;
     }
 
   .upload-photo-post-btn {
