@@ -29,7 +29,36 @@ export class SignUpComponent {
     private internalService: DataService
   ) {}
 
-  ngOnInit() {
+
+//   onSubmit() {
+
+//     //if email already in database
+//     //send message that user exists
+//     this.socialMediaService.emailExists(this.model.email).then(res => this.emailexists=res);
+//     this.socialMediaService.usernameExists(this.model.user_id).then(res => this.usernameexists = res);
+//     if (this.emailexists) {
+//         // call alert dialog
+//         console.log('email exists')
+//     }
+//     //else if username is in database
+//     //send message that username is taken
+    
+//     else if (this.usernameexists) {
+//         console.log('username exists')
+//     }
+//     //else
+//     //add user to database
+//     else {
+//       this.socialMediaService.createUser(this.model);
+//       this.socialMediaService.setUsername(this.model.user_id);
+//       this.submitted = true;
+//       this.cookie.set('user_id',this.model.user_id);
+//       this.router.navigate(['/profile']);
+//     }
+//   }
+
+ngOnInit() {
+    this.cookie.set('user_id','');
     setInterval(() => {
       this.emailAlreadyInUse = false;
     }, 3000);

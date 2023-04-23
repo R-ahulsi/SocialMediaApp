@@ -10,19 +10,20 @@ import { SinglePhotoComponent } from './single-photo/single-photo.component';
 import { SiteLeaderboardComponent } from './site-leaderboard/site-leaderboard.component';
 import { UploadPhotoComponent } from './upload-photo/upload-photo.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
+import { AuthGuard } from './auth.guard';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'signup', component: SignUpComponent},
   {path: '', redirectTo: 'login', pathMatch: 'full'},
-  {path: 'profile', component: UserProfileComponent},
-  {path: 'scoreboard', component: SiteLeaderboardComponent},
-  {path: 'upload', component: UploadPhotoComponent},
-  {path: 'friend/:username', component: OtherUserProfileComponent},
-  {path: 'search', component: SearchPageComponent},
-  {path: 'singlephoto/:photo_id', component: SinglePhotoComponent},
-  {path: 'album/:album_id', component: AlbumComponent},
-  {path: 'settings', component: SettingsComponent}
+  {path: 'profile', component: UserProfileComponent, canActivate: [AuthGuard] },
+  {path: 'scoreboard', component: SiteLeaderboardComponent, canActivate: [AuthGuard] },
+  {path: 'upload', component: UploadPhotoComponent, canActivate: [AuthGuard] },
+  {path: 'friend/:username', component: OtherUserProfileComponent, canActivate: [AuthGuard] },
+  {path: 'search', component: SearchPageComponent, canActivate: [AuthGuard] },
+  {path: 'singlephoto/:photo_id', component: SinglePhotoComponent, canActivate: [AuthGuard] },
+  {path: 'album/:album_id', component: AlbumComponent, canActivate: [AuthGuard] },
+  {path: 'settings', component: SettingsComponent, canActivate: [AuthGuard] }
 ];
 
 @NgModule({

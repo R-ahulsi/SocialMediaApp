@@ -159,6 +159,7 @@ export class SocialMediaService {
       // throw error in html?
     }
 
+
     querySnapshot.forEach((doc) => {
       user = {
         user_id: doc.get('user_id'),
@@ -172,9 +173,44 @@ export class SocialMediaService {
         contribution: doc.get('contribution'),
       };
     });
+    
+      return user;
+    }
 
-    return user;
-  }
+    async isFriended(friending:string, friended:string):Promise<boolean> {
+        const q = query(this.friendsTable, where("friending_user", "==", friending), where("friended_user","==",friended));
+    
+        const querySnapshot = await getDocs(q);
+    
+        // if (querySnapshot.empty) {
+        //     return false;
+        // }
+        
+        var retValue:boolean = false;
+        querySnapshot.forEach(doc => {
+            retValue = true;
+        })
+        return retValue;
+      }
+
+    async getFriends(friending_user:string):Promise<Friendship[]> {
+        const q = query(this.friendsTable, where("friending_user", "==", friending_user))
+
+        const querySnapshot = await getDocs(q);
+
+        var friends:Friendship[] = []
+
+        querySnapshot.forEach((doc) => {
+
+            friends.push({
+                friended_user: doc.get('friended_user'),
+                friending_user: doc.get('friending_user')
+            });
+
+        });
+
+        return friends;
+    }
 
   addFriend(newFriend: Friend) {
     this.store.collection('Friends').add({
@@ -251,8 +287,35 @@ export class SocialMediaService {
       topUsers.push(combinedArray[i].user_id);
     }
 
+
     return topUsers;
   }
+
+    /**
+    * 
+    * Updating user data 
+    * 
+    **/
+
+    async updateUserInfo(firstName: string, lastName: string, password: string, hometown: string, dob: Date, gender: string){
+        const userId = this.cookie.get('user_id');
+
+        const userInfo = query(this.usersTable, where("user_id", "==", userId))
+
+        const querySnapshot = await getDocs(userInfo);
+
+        querySnapshot.forEach(doc => {
+            updateDoc(doc.ref, { 
+              first_name: firstName,
+              last_name: lastName,
+              password: password,
+              hometown: hometown,
+              DOB: dob,
+              gender: gender
+            });
+        });
+    }
+
 
   /**
    *
