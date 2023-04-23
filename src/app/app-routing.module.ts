@@ -20,7 +20,7 @@ const routes: Routes = [
   {path: 'upload', component: UploadPhotoComponent},
   {path: 'friend/:username', component: OtherUserProfileComponent},
   {path: 'search', component: SearchPageComponent},
-  {path: 'singlephoto', component: SinglePhotoComponent},
+  {path: 'singlephoto/:photo_id', component: SinglePhotoComponent},
   {path: 'album/:album_id', component: AlbumComponent},
   {path: 'settings', component: SettingsComponent}
 ];

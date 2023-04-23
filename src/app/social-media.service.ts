@@ -429,6 +429,19 @@ export class SocialMediaService {
    */
 
 
+    async getCaption(photo_id:string) {
+        const q = query(this.photosTable, where("photo_id","==", photo_id))
+        const querySnapshot = await getDocs(q);
+
+        var caption:string = "";
+        querySnapshot.forEach(doc => {
+            caption = doc.get('caption')
+        })
+
+        return caption;
+    }
+
+
     createAlbum(album:Album) {
         this.store.collection('Albums').add({
             album_id: album.album_id,
@@ -525,10 +538,7 @@ export class SocialMediaService {
         
         querySnapshot.forEach(album =>{
             this.deletePhotosInAlbum(album.get('album_id'))
-            // await deleteDoc(doc(this.db, 'Album', album.id))
-            this.store.collection('Album').doc(album.id.toString()).delete();
-            //store.collection('Albums').doc('S8q2kKXWs27xvK9dz9oC').delete();
-
+            this.store.collection('Albums').doc(album.id.toString()).delete();
         });
     }
 
@@ -779,7 +789,7 @@ export class SocialMediaService {
             }
         })
 
-        return this.sortArrays(commentCount, commentCountNames); // TOP 10 elements in array give 10 top user_ids that comments this comment
+        return this.sortArrays(commentCount, commentCountNames); // TOP 10 elements in array give 10 top user_ids that commented this comment
     }
 
 

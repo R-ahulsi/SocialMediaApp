@@ -46,4 +46,8 @@ export class SearchPageComponent {
       console.log(this.searchCategory);
     }
   }
+
+  getPopularTags() {
+    
+  }
 }

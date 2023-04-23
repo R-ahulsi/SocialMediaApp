@@ -17,7 +17,7 @@
     </form>
 </div>
 
-<app-friends (username)='username'></app-friends>
+<app-friends [username]='username'></app-friends>
 
 <ul>
     <a *ngFor="let friend of recommendedFriends" routerLink="/friend/{{friend.user_id}}">{{friend.user_id}}</a>

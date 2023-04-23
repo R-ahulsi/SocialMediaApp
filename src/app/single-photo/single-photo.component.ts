@@ -9,6 +9,7 @@ import { Photo } from 'app/dto/Photo';
 import { Comment } from 'app/dto/Comment';
 import { Tag } from 'app/dto/Tag';
 import { CookieService } from 'ngx-cookie-service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-single-photo',
@@ -22,20 +23,24 @@ export class SinglePhotoComponent {
     likes:number = -1;
     userAccess:boolean = true;
     imageUrl: string | undefined;
-    
+    caption:string = "";
+
     photo_id: string = ""; // TODO: verify photo_id is passed in
 
     constructor(public dialog:MatDialog,
                 private service: SocialMediaService,
-                private cookie: CookieService) {}
+                private cookie: CookieService,
+                private route: ActivatedRoute) {}
 
     ngOnInit() {
         // check if the photo is yours before you get access to delete
         // this.userAccess = false;
+        this.photo_id = String(this.route.snapshot.paramMap.get('photo_id'))
         this.getImage()
         this.getComments()
         this.getTags()
         this.getLikes()
+        this.getCaption()
     }
 
     getImage() {
@@ -59,6 +64,12 @@ export class SinglePhotoComponent {
     getLikes() {
         this.service.getNumberOfLikes(this.photo_id).then(res =>
             this.likes = res
+        )
+    }
+
+    getCaption() {
+        this.service.getCaption(this.photo_id).then(res => 
+            this.caption = res
         )
     }
 

@@ -58,4 +58,8 @@ export class AlbumComponent {
     })
   }
 
+  routeToPhotoPage(photo:Photo) {
+    this.router.navigate([`/singlephoto/${photo.photo_id}`])
+  }
+
 }

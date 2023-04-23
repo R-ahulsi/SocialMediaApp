@@ -10,6 +10,7 @@ import { User } from 'app/dto/User';
 export class SiteLeaderboardComponent {
   title = 'Site Leaderboard';
   leaderboardData: User[] = [];
+  users:string[] = [];
 
   constructor(private socialMediaService: SocialMediaService) {}
 
@@ -29,6 +30,9 @@ export class SiteLeaderboardComponent {
     //   .catch((error) => {
     //     console.error('Error getting top users', error);
     //   });
+    this.socialMediaService.topUsers().then(res => {
+        this.users = res
+    })
   }
 
 }
