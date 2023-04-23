@@ -1,32 +1,47 @@
-<h1>Sign up</h1>
+<head>
+  <title>Sign Up</title>
+  <style>
+    .container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Sign up</h1>
+    <form (ngSubmit)="onSubmit()" #userForm="ngForm">
+      <label for="username">Username:</label><br>
+      <input type="text" id="username" required [(ngModel)]="model.user_id" name="username" #name="ngModel"><br>
 
-<form (ngSubmit)="onSubmit()" #userForm="ngForm">
-    <label for="username">Username:</label><br>
-    <input type="text" id="username" required [(ngModel)]="model.user_id" name="username" #name="ngModel"><br>
+      <label for="email">Email:</label><br>
+      <input type="email" id="email" required [(ngModel)]="model.email" name="email" #name="ngModel"><br>
 
-    <label for="email">Email:</label><br>
-    <input type="email" id="email" required [(ngModel)]="model.email" name="email" #name="ngModel"><br>
+      <label for="password">Password:</label><br>
+      <input type="text" id="password" required [(ngModel)]="model.password" name="password" #name="ngModel"><br>
 
-    <label for="password">Password:</label><br>
-    <input type="text" id="password" required [(ngModel)]="model.password" name="password" #name="ngModel"><br>
+      <label for="fname">First name:</label><br>
+      <input type="text" id="fname" required [(ngModel)]="model.first_name" name="fname" #name="ngModel"><br>
 
-    <label for="fname">First name:</label><br>
-    <input type="text" id="fname" required [(ngModel)]="model.first_name" name="fname" #name="ngModel"><br>
+      <label for="lname">Last name:</label><br>
+      <input type="text" id="lname" required [(ngModel)]="model.last_name" name="lname" #name="ngModel"><br>
 
-    <label for="lname">Last name:</label><br>
-    <input type="text" id="lname" required [(ngModel)]="model.last_name" name="lname" #name="ngModel"><br>
+      <label for="dob">Date of birth:</label><br>
+      <input type="date" id="dob" required [(ngModel)]="model.dob" name="dob" #name="ngModel"><br>
 
-    <label for="dob">Date of birth:</label><br>
-    <input type="date" id="dob" required [(ngModel)]="model.dob" name="dob" #name="ngModel"><br>
+      <label for="hometown">Hometown:</label><br>
+      <input type="text" id="hometown" required [(ngModel)]="model.hometown" name="hometown" #name="ngModel"><br>
 
-    <label for="hometown">Hometown:</label><br>
-    <input type="text" id="hometown" required [(ngModel)]="model.hometown" name="hometown" #name="ngModel"><br>
+      <label for="gender">Gender:</label><br>
+      <select id="gender" required [(ngModel)]="model.gender" name="gender" #gender="ngModel">
+          <option *ngFor="let g of genders" [value]="g">{{g}}</option>
+      </select><br>
 
-    <label for="gender">Gender:</label><br>
-    <select id="gender" required [(ngModel)]="model.gender" name="gender" #gender="ngModel">
-        <option *ngFor="let g of genders" [value]="g">{{g}}</option>
-    </select><br>
-
-    <button type="submit">Sign up</button>
-    <button routerLink="/login">Log In</button>
-</form>
+      <button type="submit">Sign up</button>
+      <button routerLink="/login">Log In</button>
+    </form>
+  </div>
+</body>

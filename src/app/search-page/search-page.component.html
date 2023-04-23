@@ -3,11 +3,11 @@
 </head>
 <body>
     <h1>Search Page</h1>
-    <form>
+    <form (ngSubmit)="submit()" #userForm="ngForm">
         <div class="container">
             <div>
-                <input type="text" placeholder="Search...">
-                <select>
+                <input type="text" id= "Search" placeholder="Search..." required [(ngModel)]="searchQuery" name="Search">
+                <select [(ngModel)]="searchCategory" name="category">
                     <option value="comments">Comments</option>
                     <option value="friends">Friends</option>
                     <option value="photos">Photos</option>
@@ -21,11 +21,9 @@
             <div class="popular-tags">
                 <h2>Popular Tags</h2>
                 <ul>
-                    <li><a href="#">Tag 1</a></li>
-                    <li><a href="#">Tag 2</a></li>
-                    <li><a href="#">Tag 3</a></li>
-                    <li><a href="#">Tag 4</a></li>
-                    <li><a href="#">Tag 5</a></li>
+                    <li *ngFor="let tag of popularTags">
+                        <a href="#">{{ tag }}</a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -88,4 +86,4 @@
     .popular-tags {
         margin-left: 20;
     }
-</style>
+</style> 
