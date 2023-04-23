@@ -5,7 +5,7 @@ import { Photo } from 'app/dto/Photo';
 import { User } from 'app/dto/User';
 import { CookieService } from 'ngx-cookie-service';
 import * as uuid from 'uuid';
-import { Router } from '@angular/router'
+import { ActivatedRoute, Router } from '@angular/router'
 
 @Component({
   selector: 'app-user-profile',
@@ -23,7 +23,12 @@ export class UserProfileComponent {
 
   constructor(private socialMediaService: SocialMediaService,
               private cookie: CookieService,
-              private router: Router) {}
+              private router: Router,
+              private route: ActivatedRoute) {
+                this.route.paramMap.subscribe(params=> {
+                  this.ngOnInit();
+                });
+              }
 
   ngOnInit(): void {
     this.getUsername();

@@ -220,26 +220,6 @@ export class SocialMediaService {
     });
   }
 
-  async getFriends(friending_user: string): Promise<Friendship[]> {
-    const q = query(
-      this.friendsTable,
-      where('friending_user', '==', friending_user)
-    );
-
-    const querySnapshot = await getDocs(q);
-
-    var friends: Friendship[] = [];
-
-    querySnapshot.forEach((doc) => {
-      friends.push({
-        friended_user: doc.get('friended_user'),
-        friending_user: doc.get('friending_user'),
-      });
-    });
-
-    return friends;
-  }
-
   async getFriended(friended_user: string): Promise<Friendship[]> {
     const q = query(
       this.friendsTable,

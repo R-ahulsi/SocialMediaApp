@@ -44,6 +44,7 @@ export class AlbumComponent {
         // Reload the images after the album has been deleted
         this.getImages();
         this.router.navigate(['profile']);
+        
       })
       .catch((error) => {
         console.error('Error deleting album', error);
