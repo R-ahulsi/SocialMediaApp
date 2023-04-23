@@ -19,6 +19,7 @@ import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
 import { CookieService } from 'ngx-cookie-service';
+import * as uuid from 'uuid';
 
 
 
@@ -73,15 +74,23 @@ export class SocialMediaService {
    */
 
   async emailExists(email:string):Promise<boolean> {
-    const usernameTableRef = query(this.usersTable, where("email", "==", email))
+    // const usernameTableRef = query(this.usersTable, where("email", "==", email))
 
-    const querySnapshot = await getDocs(usernameTableRef);
+    // const querySnapshot = await getDocs(usernameTableRef);
 
-    if (querySnapshot.empty) {
-        return false;
-    }
+    // if (querySnapshot.empty) {
+    //     return false;
+    // }
     
-    return true;
+    // return true;
+    const q = query(this.usersTable, where("email","==",email))
+    const querySnapshot = await getDocs(q);
+
+    var retValue = false;
+    querySnapshot.forEach(doc => {
+        retValue = true;
+    })
+    return retValue;
   }
 
   async usernameExists(username:string):Promise<boolean> {
@@ -89,11 +98,15 @@ export class SocialMediaService {
 
     const querySnapshot = await getDocs(usernameTableRef);
 
-    if (querySnapshot.empty) {
-        return false;
-    }
+    // if (querySnapshot.empty) {
+    //     return false;
+    // }
     
-    return true;
+    var retValue:boolean = false;
+    querySnapshot.forEach(doc => {
+        retValue = true;
+    })
+    return retValue;
   }
 
   createUser(newUser: User) {
@@ -105,7 +118,8 @@ export class SocialMediaService {
         hometown: newUser.hometown,
         last_name: newUser.last_name,
         password: newUser.password,
-        user_id: newUser.user_id
+        user_id: newUser.user_id,
+        contribution:newUser.contribution
     })
   }
 
@@ -369,7 +383,7 @@ export class SocialMediaService {
 
     }
 
-    async postPhoto(path: string, file:any, caption: string, album: string, tags:string) { // TODO
+    async postPhoto(path: string, file:any, caption: string, album: string, tags:string) {
         let reader = new FileReader();
         const upload = await this.storage.upload(path, file); // second param is the image file
 
@@ -378,9 +392,9 @@ export class SocialMediaService {
 
         upload.ref.getDownloadURL().then(res =>{
             this.createPhoto({
-                photo_id: '', // TODO randomized number? GUID?
+                photo_id: uuid.v4().toString(),
                 data: res, 
-                user_id: '', // TODO get user_id from upload photo?
+                user_id: this.username,
                 caption: caption,
                 album_id: album_id,
                 date_posted: new Date().toISOString()
@@ -388,7 +402,7 @@ export class SocialMediaService {
         })
 
         // increase contribution
-        this.increaseContributionScore(""); //TODO: need to get user_id somehow
+        this.increaseContributionScore(this.username);
     }
 
     async getAlbumId(name:string) {

@@ -43,5 +43,12 @@
       <button type="submit">Sign up</button>
       <button routerLink="/login">Log In</button>
     </form>
+
+    <div *ngIf="emailAlreadyInUse" style="background-color: #ffcccc; padding: 10px; margin-top: 10px;">
+        <div style="color: red;">
+            Email is already in use.
+        </div>
+    </div>
+
   </div>
 </body>

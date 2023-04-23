@@ -13,8 +13,6 @@ export class LoginComponent {
 
     email:string = ""
     password:string = ""
-    @Output() userLoggedIn = new EventEmitter<boolean>();
-    // userLoggedIn = false;
 
     constructor(private router: Router,
                 private service: SocialMediaService,
@@ -29,9 +27,7 @@ export class LoginComponent {
                     this.cookie.set("user_id",username);
                     console.log(this.cookie.get("user_id"))
 
-                    // this.userLoggedIn.emit(true);
                     this.internalService.setData(true);
-                    // this.userLoggedIn = true;
                     this.router.navigate(['/profile'])
                 })
             }
@@ -39,7 +35,6 @@ export class LoginComponent {
     }
 
     signUp() {
-        // Navigate to the sign up page
         this.router.navigate(['signup']);
     }
 }
