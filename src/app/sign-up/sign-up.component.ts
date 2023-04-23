@@ -54,6 +54,7 @@ export class SignUpComponent {
 //   }
 
 ngOnInit() {
+    this.cookie.set('user_id','');
     setInterval(() => {
       this.emailAlreadyInUse = false;
     }, 3000);

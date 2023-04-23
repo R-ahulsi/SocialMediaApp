@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { DataService } from 'app/app.component';
 import { SocialMediaService } from 'app/social-media.service';
 import { CookieService } from 'ngx-cookie-service';
+import { AppComponent } from 'app/app.component';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +18,15 @@ export class LoginComponent {
     constructor(private router: Router,
                 private service: SocialMediaService,
                 private cookie: CookieService,
-                private internalService: DataService) {}
+                private internalService: DataService,
+                private app: AppComponent) {}
+
+    ngOnInit() {
+        this.cookie.set('user_id','');
+        //userLoggedIn = false;
+        //window.location.reload();
+        
+    }
 
     login() {
         // Code for handling the login process
@@ -28,7 +37,10 @@ export class LoginComponent {
                     console.log(this.cookie.get("user_id"))
 
                     this.internalService.setData(true);
-                    this.router.navigate(['/profile'])
+                    //this.router.navigate(['/profile'])
+                    this.router.navigateByUrl('/profile');
+                    //this.app.userLoggedIn=true;
+                    window.location.replace('/profile');
                 })
             }
         })
