@@ -3,7 +3,17 @@
     <a *ngFor="let album of albums" routerLink="/album/{{album.album_id}}">{{album.name}}</a>
 </ul>
 
-<button type="button">Add Album</button>
+<button type="button" (click)="addAlbumClick()">Add Album</button>
+
+
+<div *ngIf="addAlbumClicked">
+    <h3>Add Album</h3>
+    <form (ngSubmit)="onSubmit()" #userForm="ngForm">
+        <label for="name">Username:</label><br>
+        <input type="text" id="name" required [(ngModel)]="newAlbum.name" name="name" #name="ngModel"><br>
+        <button type="submit">Add</button>
+    </form>
+</div>
 
 <app-friends (username)='username'></app-friends>
 

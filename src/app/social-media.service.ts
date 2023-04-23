@@ -297,7 +297,7 @@ export class SocialMediaService {
         const querySnapshot = await getDocs(q);
 
         var singleAlbum : Album = {
-            album_id: 0,
+            album_id: '',
             name: '',
             user_id: '',
             creation_date: '',
@@ -322,7 +322,7 @@ export class SocialMediaService {
         const querySnapshot = await getDocs(q);
 
         var singleAlbum : Album = {
-            album_id: 0,
+            album_id: '',
             name: '',
             user_id: '',
             creation_date: '',
