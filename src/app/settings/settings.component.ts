@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { SocialMediaService } from 'app/social-media.service';
+import * as bcrypt from 'bcryptjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-settings',
@@ -7,24 +10,30 @@ import { Component } from '@angular/core';
 })
 export class SettingsComponent {
   model = {
-    email: '',
+    change_fname: '',
+    change_lname: '',
     password: '',
-    first_name: '',
-    last_name: '',
-    dob: '',
     hometown: '',
+    dob: new Date(),
     gender: ''
   };
 
-  //form submission
-  onSubmit() {
-    // TODO: Implement backend code
-    console.log(this.model); // test
-  }
+  genders = ['M', 'F'];
+  hashedPassword = '';
 
-  //logout button click
-  onLogout() {
-    // TODO: Implement backend code
-    console.log('Logged out'); // test
+  constructor(private socialMediaService: SocialMediaService,
+              private router: Router) {}
+  
+  onSubmit() {
+    bcrypt.hash(this.model.password, 10, (err, hash) => {
+      if (err) {
+        console.error(err);
+      } else {
+        this.model.password = hash;
+        this.socialMediaService.updateUserInfo(this.model.change_fname, this.model.change_lname, this.model.password, 
+                                                this.model.hometown, this.model.dob, this.model.gender);
+        this.router.navigate(['/profile']);
+      }
+    });
   }
 }

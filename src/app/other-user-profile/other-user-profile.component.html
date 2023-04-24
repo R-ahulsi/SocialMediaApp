@@ -1,6 +1,10 @@
 <h1>{{username}}</h1>
+<h2>Albums</h2>
 <ul>
-    <a *ngFor="let album of albums" routerLink="/album/{{album.album_id}}">{{album.name}}</a>
+    <li *ngFor="let album of albums">
+        <a routerLink="/album/{{album.album_id}}">{{album.name}}</a>
+    </li>
+    
 </ul>
 
 <app-friends [username]="username"></app-friends>
