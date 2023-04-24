@@ -12,6 +12,7 @@ import { UploadPhotoComponent } from './upload-photo/upload-photo.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { AuthGuard } from './auth.guard';
 import { TagsComponent } from './tag-images/tag-images.component';
+import { AllPhotosComponent } from './all-photos/all-photos.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -25,7 +26,8 @@ const routes: Routes = [
   {path: 'singlephoto/:photo_id', component: SinglePhotoComponent, canActivate: [AuthGuard] },
   {path: 'album/:album_id', component: AlbumComponent, canActivate: [AuthGuard] },
   {path: 'settings', component: SettingsComponent, canActivate: [AuthGuard] },
-  {path: 'tag/:tag', component: TagsComponent, canActivate: [AuthGuard]}
+  {path: 'tag/:tag', component: TagsComponent, canActivate: [AuthGuard]},
+  {path: 'allphotos', component: AllPhotosComponent, canActivate: [AuthGuard]}
 
 ];
 

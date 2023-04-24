@@ -49,6 +49,12 @@
             Email is already in use.
         </div>
     </div>
+    <div *ngIf="usernameAlreadyInUse" style="background-color: #ffcccc; padding: 10px; margin-top: 10px;">
+      <div style="color: red;">
+          Username is already in use.
+      </div>
+  </div>
+    
 
   </div>
 </body>

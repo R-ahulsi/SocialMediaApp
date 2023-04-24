@@ -277,7 +277,7 @@ export class SocialMediaService {
 
     let combinedArray = this.sortArrays(contribution, user_ids);
 
-    for (let i = 0; i < 6; i++) {
+    for (let i = 0; i < 10; i++) {
       topUsers.push(combinedArray[i].user_id);
     }
 
@@ -377,6 +377,7 @@ export class SocialMediaService {
       singlePhoto.photo_id = doc.get('photo_id');
       singlePhoto.user_id = doc.get('user_id');
       photos.push(singlePhoto);
+      singlePhoto = new Photo('','','','','','');
     });
 
     return photos;
