@@ -8,7 +8,7 @@
     <div class="container">
         <div class="image" *ngFor="let photo of photos">
             {{ photo.caption }}
-            <img src={{photo.data}} alt="" (click)="routeToPhotoPage(photo)">
+            <img height="300px" width="300px" src={{photo.data}} alt="" (click)="routeToPhotoPage(photo)">
         </div>
     </div>
     

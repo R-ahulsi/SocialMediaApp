@@ -15,7 +15,7 @@
                 <button type="submit">Search</button>
 
                 <div *ngFor="let photo of photosViaTagSearch">
-                    <img src="{{photo}}" alt="">
+                    <img height="300px" width="300px" src="{{photo}}" alt="">
                 </div>
 
                 <div *ngFor="let name of namesWhoCommented">
@@ -24,7 +24,7 @@
 
                 <h2>You May Also Like</h2>
                 <div *ngFor="let image of recommendedContent">
-                    <img src="{{image}}" alt="">
+                    <img height="300px" width="300px" src="{{image}}" alt="">
                 </div>
             </div>
             <div class="popular-tags">
