@@ -20,6 +20,9 @@
 
 <app-friends [username]='username'></app-friends>
 
+<h2>Recommended Friends</h2>
 <ul>
-    <a *ngFor="let friend of recommendedFriends" routerLink="/friend/{{friend.user_id}}">{{friend.user_id}}</a>
+    <li *ngFor="let friend of recommendedFriends">
+        <a routerLink="/friend/{{friend}}">{{friend}}</a>
+    </li>
 </ul>

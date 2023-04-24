@@ -16,7 +16,7 @@ export class UserProfileComponent {
   albums: Album[] = [];
   username: string = "";
   firstPhotos: Photo[] = [];
-  recommendedFriends: User[] = [];
+  recommendedFriends: string[] = [];
 
   addAlbumClicked: boolean = false;
   newAlbum = new Album('','','','');
@@ -33,6 +33,7 @@ export class UserProfileComponent {
   ngOnInit(): void {
     this.getUsername();
     this.getAlbums();
+    this.getRecommendedFriends();
   }
 
   ngOnChanges() {
@@ -75,8 +76,9 @@ export class UserProfileComponent {
   }
 
   getRecommendedFriends(): void {
-    //this.socialMediaService.getRecommendedFriends()
-    //  .subscribe(recommendedFriends => this.recommendedFriends = recommendedFriends);
+    this.socialMediaService.getFriendRecommendations(this.cookie.get('user_id')).then(res => {
+        this.recommendedFriends = res;
+    })
   }
 }
 

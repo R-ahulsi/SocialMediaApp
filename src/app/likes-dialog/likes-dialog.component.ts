@@ -9,7 +9,7 @@ import { SocialMediaService } from 'app/social-media.service';
 })
 export class LikesDialogComponent {
 
-    @Input() likes:string[] = ["someone", "another person", "one more", ]; // input names of likes?
+    @Input() likes:string[] = [];
 
     constructor(public dialogRef:MatDialogRef<LikesDialogComponent>, 
                 @Inject(MAT_DIALOG_DATA) public data: any,

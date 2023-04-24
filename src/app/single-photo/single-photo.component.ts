@@ -77,6 +77,20 @@ export class SinglePhotoComponent {
         this.service.deletePhoto(this.photo_id)
     }
 
+    like() {
+        this.service.alreadyLiked(this.cookie.get('user_id'), this.photo_id).then(res => {
+            if(res) {
+                // already liked
+            }
+            else {
+                this.service.likePhoto({
+                    photo_id: this.photo_id,
+                    user_id: this.cookie.get('user_id')
+                })
+            }
+        })
+    }
+
     showLikes(): void {
         const dialogRef = this.dialog.open(LikesDialogComponent, {
           width: '300px',

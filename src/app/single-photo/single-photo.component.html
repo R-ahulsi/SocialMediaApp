@@ -15,10 +15,11 @@
             </div>
         </div>
         <div *ngFor="let tag of tags" class="tags">
-            <a class="tag" href="/{{tag}}">{{tag}}</a>
+            <a class="tag" href="/tag/{{tag}}">{{tag}}</a>
         </div>
         <div class="postButtons">
             <span><button (click)="showLikes()">{{likes}} ♥ likes</button></span>
+            <span><button (click)="like()">like photo</button></span>
             <span class="button"><button (click)="addComment()">add comment</button></span>
             <span *ngIf="userAccess" class="button"><button (click)="deletePost()">delete</button></span>
         </div>

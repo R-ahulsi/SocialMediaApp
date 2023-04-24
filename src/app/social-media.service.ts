@@ -531,7 +531,7 @@ export class SocialMediaService {
     file: any,
     caption: string,
     album: string,
-    tags: string
+    tags: string[]
   ) {
     let reader = new FileReader();
     const upload = await this.storage.upload(path, file); // second param is the image file
@@ -539,9 +539,10 @@ export class SocialMediaService {
     var album_id: string = '';
     this.getAlbumId(album).then((res) => (album_id = res));
 
+    let photo_id = uuid.v4().toString()
     upload.ref.getDownloadURL().then((res) => {
       this.createPhoto({
-        photo_id: uuid.v4().toString(),
+        photo_id: photo_id,
         data: res,
         user_id: this.username,
         caption: caption,
@@ -549,6 +550,13 @@ export class SocialMediaService {
         date_posted: new Date().toISOString(),
       });
     });
+
+    tags.forEach(tag => {
+        this.createTag({
+            photo_id: photo_id,
+            word: tag
+        })
+    })
 
     // increase contribution
     this.increaseContributionScore(this.username);
@@ -695,6 +703,66 @@ export class SocialMediaService {
         return imageUrls;
     }
 
+    async getAllPhotosWithTag(tag:string) {
+        const q = query(this.tagsTable, where("word","==",tag))
+        const querySnapshot = await getDocs(q)
+
+        var photos:Photo[] = []
+
+        var photo_ids:string[] = []
+        querySnapshot.forEach(doc => {
+            photo_ids.push(doc.get('photo_id'))
+        })
+
+        photo_ids.forEach(async photo_id => {
+            const q = query(this.photosTable, where("photo_id", "==", photo_id))
+            const querySnapshot = await getDocs(q)
+
+            querySnapshot.forEach(doc => {
+                photos.push({
+                    photo_id: doc.get('photo_id'),
+                    data: doc.get('data'),
+                    user_id: doc.get('user_id'),
+                    caption: doc.get('caption'),
+                    album_id: doc.get('album_id'),
+                    date_posted: doc.get('date_posted')
+                })
+            })
+        })
+
+        return photos;
+    }
+
+    async getUsersPhotosWithTag(tag:string, user_id:string) {
+        const q = query(this.tagsTable, where("word","==",tag))
+        const querySnapshot = await getDocs(q)
+
+        var photos:Photo[] = []
+
+        var photo_ids:string[] = []
+        querySnapshot.forEach(doc => {
+            photo_ids.push(doc.get('photo_id'))
+        })
+
+        photo_ids.forEach(async photo_id => {
+            const q = query(this.photosTable, where("photo_id", "==", photo_id), where("user_id","==",user_id))
+            const querySnapshot = await getDocs(q)
+
+            querySnapshot.forEach(doc => {
+                photos.push({
+                    photo_id: doc.get('photo_id'),
+                    data: doc.get('data'),
+                    user_id: doc.get('user_id'),
+                    caption: doc.get('caption'),
+                    album_id: doc.get('album_id'),
+                    date_posted: doc.get('date_posted')
+                })
+            })
+        })
+
+        return photos;
+    }
+
     async selectUsersPhotosWithTag(user_id: string, tags: string[]) {
         var imageUrls: string[] = [];
 
@@ -811,6 +879,19 @@ export class SocialMediaService {
       photo_id: like.photo_id,
       user_id: like.user_id,
     });
+  }
+
+  async alreadyLiked(user_id:string,photo_id:string) {
+    const q = query(this.likesTable,where("photo_id","==",photo_id))
+    const querySnapshot = await getDocs(q)
+
+    var retValue = false;
+    querySnapshot.forEach(doc => {
+        if(doc.get('user_id') === user_id) {
+            retValue = true;
+        }
+    })
+    return retValue;
   }
 
   async getLikesOnPhoto(photo_id: string): Promise<string[]> {
@@ -1008,8 +1089,9 @@ export class SocialMediaService {
 
     let querySnapshot = await getDocs(q);
 
-    querySnapshot.forEach(
-      async (photo) => await deleteDoc(doc(this.db, 'Album', photo.id))
-    );
+    querySnapshot.forEach(async (photo) => {
+        //await deleteDoc(doc(this.db, 'Album', photo.id))
+        this.store.collection('Photos').doc(photo.id.toString()).delete()
+    });
   }
 }

@@ -23,10 +23,11 @@ export class UploadPhotoComponent {
   
     async onPost(){
       const file = this.file.target.files[0];
+      const tagsArray = this.tags.split(" ")
 
       if (file){
         const path = `images/${file.name}`;
-        await this.service.postPhoto(path, file, this.caption, this.albumId, this.tags);
+        await this.service.postPhoto(path, file, this.caption, this.albumId, tagsArray);
         this.caption = '';
         this.albumId = '';
         this.tags = '';
