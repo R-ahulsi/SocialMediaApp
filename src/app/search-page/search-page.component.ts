@@ -16,6 +16,7 @@ export class SearchPageComponent {
     photosViaTagSearch:string[] = []
     namesWhoCommented:string[] = []
     recommendedContent:string[] = []
+    usernameSearch:string = "";
 
     constructor(private socialMediaService: SocialMediaService,
                 private cookieService: CookieService) {}
@@ -59,6 +60,13 @@ export class SearchPageComponent {
             let tags = this.searchQuery.split(" ")
             this.socialMediaService.selectUsersPhotosWithTag(this.cookieService.get('user_id'),tags).then(res => {
                 this.photosViaTagSearch = res
+            })
+        }
+        else if (this.searchCategory === 'users') {
+            this.socialMediaService.usernameExists(this.searchQuery).then(res =>{
+                if (res) {
+                    this.usernameSearch = this.searchQuery
+                }
             })
         }
     }

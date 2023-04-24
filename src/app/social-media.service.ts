@@ -681,7 +681,7 @@ export class SocialMediaService {
     async selectAllPhotosWithTag(tags: string[]) {
         var imageUrls:string[] = []
 
-        tags.forEach(async tag => {
+        for (const tag of tags) {
             const q = query(this.tagsTable, where("word", "==",tag))
             const querySnapshot = await getDocs(q);
 
@@ -690,15 +690,15 @@ export class SocialMediaService {
                 photoIds.push(res.get('photo_id'))
             })
 
-            photoIds.forEach(async ele => {
+            for (const ele of photoIds) {
                 const q = query(this.photosTable, where("photo_id", "==", ele))
                 const querySnapshot = await getDocs(q)
 
                 querySnapshot.forEach(res => {
                     imageUrls.push(res.get('data'))
                 })
-            })
-        })
+            }
+        }
 
         return imageUrls;
     }
@@ -714,7 +714,7 @@ export class SocialMediaService {
             photo_ids.push(doc.get('photo_id'))
         })
 
-        photo_ids.forEach(async photo_id => {
+        for (const photo_id of photo_ids) {
             const q = query(this.photosTable, where("photo_id", "==", photo_id))
             const querySnapshot = await getDocs(q)
 
@@ -728,7 +728,7 @@ export class SocialMediaService {
                     date_posted: doc.get('date_posted')
                 })
             })
-        })
+        }
 
         return photos;
     }
@@ -744,7 +744,7 @@ export class SocialMediaService {
             photo_ids.push(doc.get('photo_id'))
         })
 
-        photo_ids.forEach(async photo_id => {
+        for (const photo_id of photo_ids) {
             const q = query(this.photosTable, where("photo_id", "==", photo_id), where("user_id","==",user_id))
             const querySnapshot = await getDocs(q)
 
@@ -758,7 +758,7 @@ export class SocialMediaService {
                     date_posted: doc.get('date_posted')
                 })
             })
-        })
+        }
 
         return photos;
     }
@@ -766,7 +766,7 @@ export class SocialMediaService {
     async selectUsersPhotosWithTag(user_id: string, tags: string[]) {
         var imageUrls: string[] = [];
 
-        tags.forEach(async tag => {
+        for (const tag of tags) {
             const q = query(this.tagsTable, where('word', '==', tag));
             const querySnapshot = await getDocs(q);
 
@@ -775,15 +775,15 @@ export class SocialMediaService {
                 photoIds.push(res.get('photo_id'));
             });
 
-            photoIds.forEach(async (ele) => {
-            const q = query(this.photosTable, where('photo_id', '==', ele), where('user_id', '==', user_id));
-            const querySnapshot = await getDocs(q);
+            for (const ele of photoIds) {
+                const q = query(this.photosTable, where('photo_id', '==', ele), where('user_id', '==', user_id));
+                const querySnapshot = await getDocs(q);
 
-            querySnapshot.forEach((res) => {
-                imageUrls.push(res.get('data'));
-            });
-        });
-        })
+                querySnapshot.forEach((res) => {
+                    imageUrls.push(res.get('data'));
+                });
+            }
+        }
 
         return imageUrls;
     }
@@ -962,7 +962,7 @@ export class SocialMediaService {
     });
 
     var friendsOfFriend: string[] = [];
-    friends.forEach(async (ele) => {
+    for (const ele of friends) {
       const q = query(this.friendsTable, where('friending_user', '==', ele));
       const querySnapshot = await getDocs(q);
 
@@ -974,9 +974,9 @@ export class SocialMediaService {
 
         friendsOfFriend.push(res.get('friended_user'));
       });
-    });
+    }
 
-    return friendsOfFriend; // Sort array?
+    return friendsOfFriend;
   }
 
   /**
@@ -997,33 +997,35 @@ export class SocialMediaService {
     });
 
     var tagsOfInterest: string[] = [];
-    usersPhotos.forEach(async (photo) => {
+    for (const photo of usersPhotos) {
       const q = query(this.tagsTable, where('photo_id', '==', photo));
       const querySnapshot = await getDocs(q);
 
       querySnapshot.forEach((ele) => {
         tagsOfInterest.push(ele.get('word'));
       });
-    });
+    }
 
     var photoIdsOfInterest: string[] = [];
-    tagsOfInterest.forEach(async (ele) => {
+    for(const ele of tagsOfInterest) {
       const q = query(this.tagsTable, where('word', '==', ele));
       const querySnapshot = await getDocs(q);
 
       querySnapshot.forEach((res) => {
         photoIdsOfInterest.push(res.get('photo_id'));
       });
-    });
+    }
 
-    photoIdsOfInterest.forEach(async (ele) => {
+    for (const ele of photoIdsOfInterest) {
       const q = query(this.photosTable, where('photo_id', '==', ele));
       const querySnapshot = await getDocs(q);
 
       querySnapshot.forEach((res) => {
-        photoUrls.push(res.get('data'));
+        if(res.get('user_id') != user_id){
+            photoUrls.push(res.get('data'));
+        }
       });
-    });
+    }
 
     return photoUrls;
   }
@@ -1089,7 +1091,7 @@ export class SocialMediaService {
 
     let querySnapshot = await getDocs(q);
 
-    querySnapshot.forEach(async (photo) => {
+    querySnapshot.forEach(photo => {
         //await deleteDoc(doc(this.db, 'Album', photo.id))
         this.store.collection('Photos').doc(photo.id.toString()).delete()
     });

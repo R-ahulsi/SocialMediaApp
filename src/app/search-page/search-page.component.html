@@ -9,6 +9,7 @@
                 <input type="text" id= "Search" placeholder="Search..." required [(ngModel)]="searchQuery" name="Search">
                 <select [(ngModel)]="searchCategory" name="category">
                     <option value="comments">Comments</option>
+                    <option value="users">Users</option>
                     <option value="photos">All Photos Via Tags</option>
                     <option value="user_photos">My Photos Via Tags</option>
                 </select>
@@ -22,6 +23,10 @@
                     {{name}}
                 </div>
 
+                <div>
+                    <a routerLink="/friend/{{usernameSearch}}">{{usernameSearch}}</a>
+                </div>
+
                 <h2>You May Also Like</h2>
                 <div *ngFor="let image of recommendedContent">
                     <img height="300px" width="300px" src="{{image}}" alt="">
@@ -31,7 +36,7 @@
                 <h2>Popular Tags</h2>
                 <ul>
                     <li *ngFor="let tag of popularTags">
-                        <a href="#">{{ tag }}</a>
+                        <a routerLink="/tag/{{tag}}">{{ tag }}</a>
                     </li>
                 </ul>
             </div>
