@@ -9,14 +9,22 @@
                 <input type="text" id= "Search" placeholder="Search..." required [(ngModel)]="searchQuery" name="Search">
                 <select [(ngModel)]="searchCategory" name="category">
                     <option value="comments">Comments</option>
-                    <option value="friends">Friends</option>
-                    <option value="photos">Photos</option>
-                    <option value="tags">Tags</option>
-                    <option value="album">Album</option>
+                    <option value="photos">Photos Via Tags</option>
                 </select>
                 <button type="submit">Search</button>
+
+                <div *ngFor="let photo of photosViaTagSearch">
+                    <img src="{{photo}}" alt="">
+                </div>
+
+                <div *ngFor="let name of namesWhoCommented">
+                    {{name}}
+                </div>
+
                 <h2>You May Also Like</h2>
-                <!-- Add recommended content here -->
+                <div *ngFor="let image of recommendedContent">
+                    <img src="{{image}}" alt="">
+                </div>
             </div>
             <div class="popular-tags">
                 <h2>Popular Tags</h2>

@@ -73,6 +73,21 @@ export class SocialMediaService {
     return usernameString;
   }
 
+  async getFirstAndLastName(user_id:string) {
+    const q = query(this.usersTable, where("user_id","==",user_id))
+    const querySnapshot = await getDocs(q)
+
+    var name:string = ""
+    querySnapshot.forEach(res => {
+        var first = res.get("first_name")
+        var last = res.get("last_name")
+
+        name = `${first} ${last}`
+    })
+
+    return name;
+  }
+
   /**
    *
    * CREATING USER QUERIES
@@ -652,13 +667,39 @@ export class SocialMediaService {
       tags.push(doc.get('word'));
     });
 
-    return tags;
-  }
+    async getTagsForPhoto(photo_id:string) {
+        const q = query(this.tagsTable, where("photo_id","==",photo_id))
+        const querySnapshot = await getDocs(q)
 
-  async selectAllPhotosWithTag(tag: string) {
-    var photoIds: string[] = [];
-    const q = query(this.tagsTable, where('word', '==', tag));
-    const querySnapshot = await getDocs(q);
+        var tags:string[] = []
+        querySnapshot.forEach(doc => {
+            tags.push(doc.get('word'))
+        })
+
+        return tags
+    }
+
+    async selectAllPhotosWithTag(tags: string[]) {
+        var imageUrls:string[] = []
+
+        tags.forEach(async tag => {
+            const q = query(this.tagsTable, where("word", "==",tag))
+            const querySnapshot = await getDocs(q);
+
+            var photoIds:string[] = []
+            querySnapshot.forEach(res => {
+                photoIds.push(res.get('photo_id'))
+            })
+
+            photoIds.forEach(async ele => {
+                const q = query(this.photosTable, where("photo_id", "==", ele))
+                const querySnapshot = await getDocs(q)
+
+                querySnapshot.forEach(res => {
+                    imageUrls.push(res.get('data'))
+                })
+            })
+        })
 
     querySnapshot.forEach((res) => {
       photoIds.push(res.get('photo_id'));
@@ -720,17 +761,32 @@ export class SocialMediaService {
       tagWords.push(doc.get('word'));
     });
 
-    const tagsMap = tagWords.reduce((map, currentValue) => {
-      if (map.has(currentValue)) {
-        map.set(currentValue, map.get(currentValue) ? +1 : 1);
-      } else {
-        map.set(currentValue, 1);
-      }
-      return map;
-    }, new Map<string, number>());
+    async selectMostPopularTags() {
+        const q = query(this.tagsTable)
+        const querySnapshot = await getDocs(q);
 
-    return tagsMap; // returns a map of <string, number>. It should be sorted from the highest to lowest so grab first elements first.
-  }
+        var tagWords:string[] = []
+        querySnapshot.forEach(doc => {
+            tagWords.push(doc.get('word'))
+        })
+
+        const map = new Map();
+        for (const elem of tagWords) {
+            if (map.has(elem)) {
+              map.set(elem, map.get(elem) + 1);
+            } else {
+              map.set(elem, 1);
+            }
+        }
+        
+        // Sort the array based on the number of occurrences
+        const sorted = Array.from(map.entries())
+            .sort((a, b) => b[1] - a[1])
+            .map(([elem]) => elem);
+        
+        return sorted;
+    }
+
 
   /**
    *
