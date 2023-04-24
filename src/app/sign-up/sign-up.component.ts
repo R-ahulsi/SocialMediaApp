@@ -21,6 +21,7 @@ export class SignUpComponent {
   usernameexists = false;
 
   emailAlreadyInUse: boolean = false;
+  usernameAlreadyInUse: boolean = false;
 
   constructor(
     private socialMediaService: SocialMediaService,
@@ -59,9 +60,9 @@ export class SignUpComponent {
 
 ngOnInit() {
     this.cookie.set('user_id','');
-    setInterval(() => {
-      this.emailAlreadyInUse = false;
-    }, 3000);
+    //setInterval(() => {
+      //this.emailAlreadyInUse = false;
+    //}, 3000);
   }
 
   onSubmit() {
@@ -70,7 +71,7 @@ ngOnInit() {
       if (this.emailexists) {
         console.log('email exists');
         this.emailAlreadyInUse = true;
-        this.model = new User('', '', '', '', '', '', '', '', 0);
+        //this.model = new User('', '', '', '', '', '', '', '', 0);
       } else {
         this.socialMediaService
           .usernameExists(this.model.user_id)
@@ -78,6 +79,7 @@ ngOnInit() {
             this.usernameexists = res;
             if (this.usernameexists) {
               // send message that username is taken
+              this.usernameAlreadyInUse = true;
               console.log('username exists');
             } else {
               bcrypt.hash(this.model.password, 10, (err, hash) => {

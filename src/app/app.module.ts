@@ -36,6 +36,7 @@ import { AngularFireModule } from '@angular/fire/compat';
 import { SettingsComponent } from './settings/settings.component';
 import { TagsComponent } from './tag-images/tag-images.component';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
+import { AllPhotosComponent } from './all-photos/all-photos.component';
 
 
 @NgModule({
@@ -56,7 +57,8 @@ import { AngularFireStorageModule } from '@angular/fire/compat/storage';
     SettingsComponent,
     TagsComponent,
     OtherUserProfileComponent,
-    SearchPageComponent
+    SearchPageComponent,
+    AllPhotosComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,9 @@
+<h1>Browse All Photos</h1>
+
+
+<div class="container">
+    <div class="image" *ngFor="let photo of photos">
+        {{ photo.caption }}
+        <img height="300px" width="300px" src={{photo.data}} alt="" (click)="routeToPhotoPage(photo)">
+    </div>
+</div>
