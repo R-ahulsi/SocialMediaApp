@@ -25,7 +25,7 @@ export class SinglePhotoComponent {
     imageUrl: string | undefined;
     caption:string = "";
 
-    photo_id: string = ""; // TODO: verify photo_id is passed in
+    photo_id: string = "";
 
     constructor(public dialog:MatDialog,
                 private service: SocialMediaService,

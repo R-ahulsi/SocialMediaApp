@@ -277,8 +277,7 @@ export class SocialMediaService {
 
     let combinedArray = this.sortArrays(contribution, user_ids);
 
-    for (let i = 0; i < 10; i++) {
-      // get top 10 users contribution score
+    for (let i = 0; i < 6; i++) {
       topUsers.push(combinedArray[i].user_id);
     }
 
@@ -658,14 +657,6 @@ export class SocialMediaService {
    *
    */
 
-  async getTagsForPhoto(photo_id: string) {
-    const q = query(this.tagsTable, where('photo_id', '==', photo_id));
-    const querySnapshot = await getDocs(q);
-
-    var tags: string[] = [];
-    querySnapshot.forEach((doc) => {
-      tags.push(doc.get('word'));
-    });
 
     async getTagsForPhoto(photo_id:string) {
         const q = query(this.tagsTable, where("photo_id","==",photo_id))
@@ -701,48 +692,33 @@ export class SocialMediaService {
             })
         })
 
-    querySnapshot.forEach((res) => {
-      photoIds.push(res.get('photo_id'));
-    });
+        return imageUrls;
+    }
 
-    var imageUrls: string[] = [];
-    photoIds.forEach(async (ele) => {
-      const q = query(this.photosTable, where('photo_id', '==', ele));
-      const querySnapshot = await getDocs(q);
+    async selectUsersPhotosWithTag(user_id: string, tags: string[]) {
+        var imageUrls: string[] = [];
 
-      querySnapshot.forEach((res) => {
-        imageUrls.push(res.get('data'));
-      });
-    });
+        tags.forEach(async tag => {
+            const q = query(this.tagsTable, where('word', '==', tag));
+            const querySnapshot = await getDocs(q);
 
-    return imageUrls;
-  }
+            var photoIds: string[] = [];
+            querySnapshot.forEach((res) => {
+                photoIds.push(res.get('photo_id'));
+            });
 
-  async selectUsersPhotosWithTag(user_id: string, tag: string) {
-    var photoIds: string[] = [];
-    const q = query(this.tagsTable, where('word', '==', tag));
-    const querySnapshot = await getDocs(q);
+            photoIds.forEach(async (ele) => {
+            const q = query(this.photosTable, where('photo_id', '==', ele), where('user_id', '==', user_id));
+            const querySnapshot = await getDocs(q);
 
-    querySnapshot.forEach((res) => {
-      photoIds.push(res.get('photo_id'));
-    });
+            querySnapshot.forEach((res) => {
+                imageUrls.push(res.get('data'));
+            });
+        });
+        })
 
-    var imageUrls: string[] = [];
-    photoIds.forEach(async (ele) => {
-      const q = query(
-        this.photosTable,
-        where('photo_id', '==', ele),
-        where('user_id', '==', user_id)
-      );
-      const querySnapshot = await getDocs(q);
-
-      querySnapshot.forEach((res) => {
-        imageUrls.push(res.get('data'));
-      });
-    });
-
-    return imageUrls;
-  }
+        return imageUrls;
+    }
 
   /**
    *
@@ -750,16 +726,16 @@ export class SocialMediaService {
    *
    */
 
-  async selectMostPopularTags() {
-    var popularTags: string[] = [];
+//   async selectMostPopularTags() {
+//     var popularTags: string[] = [];
 
-    const q = query(this.tagsTable);
-    const querySnapshot = await getDocs(q);
+//     const q = query(this.tagsTable);
+//     const querySnapshot = await getDocs(q);
 
-    var tagWords: string[] = [];
-    querySnapshot.forEach((doc) => {
-      tagWords.push(doc.get('word'));
-    });
+//     var tagWords: string[] = [];
+//     querySnapshot.forEach((doc) => {
+//       tagWords.push(doc.get('word'));
+//     });
 
     async selectMostPopularTags() {
         const q = query(this.tagsTable)
@@ -934,7 +910,7 @@ export class SocialMediaService {
     const q = query(this.photosTable, where('user_id', '==', user_id));
     const querySnapshot = await getDocs(q);
 
-    var usersPhotos: number[] = [];
+    var usersPhotos: string[] = [];
     querySnapshot.forEach((res) => {
       usersPhotos.push(res.get('photo_id'));
     });
@@ -968,7 +944,7 @@ export class SocialMediaService {
       });
     });
 
-    return photoUrls; // Need to sort??? Nahhhh
+    return photoUrls;
   }
 
   /*******************************************************************

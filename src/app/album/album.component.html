@@ -1,8 +1,8 @@
 
 <body>
+    <button *ngIf="isOwner" class="delete" (click)="onDelete()">Delete</button>
     <div>
         <h1 style="text-align: center;">{{albumName}}</h1>
-        <button *ngIf="isOwner" class="delete" (click)="onDelete()">Delete</button>
     </div> 
 
     <div class="container">

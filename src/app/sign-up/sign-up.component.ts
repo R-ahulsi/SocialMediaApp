@@ -91,7 +91,7 @@ ngOnInit() {
                   this.internalService.setData(true);
                   this.cookie.set('user_id', this.model.user_id);
                   this.router.navigate(['/profile']);
-                  window.location.replace('/profile');
+                //   window.location.replace('/profile');
                 }
               });
             }

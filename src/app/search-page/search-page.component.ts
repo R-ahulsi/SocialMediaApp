@@ -9,8 +9,8 @@ import { CookieService } from 'ngx-cookie-service';
   styleUrls: ['./search-page.component.css']
 })
 export class SearchPageComponent {
-    searchQuery: string = "cooool";
-    searchCategory: string = 'commentz';
+    searchQuery: string = "";
+    searchCategory: string = "";
     popularTags:string[] = []
 
     photosViaTagSearch:string[] = []
@@ -34,16 +34,12 @@ export class SearchPageComponent {
     }
 
     submit() {
-        //console.log("Search Query:", this.searchQuery);
-        //console.log("Search Category:", this.searchCategory);
-        console.log(this.socialMediaService.searchComments(this.searchQuery));
-
-        if (this.searchCategory === 'Comments'){
+        if (this.searchCategory === 'comments'){
             var names:string[] = []
 
             var arr: { count: number, user_id: string }[]
             this.socialMediaService.searchComments(this.searchQuery).then(res => {// get array of all the user_ids that have made this comment in order
-                arr.forEach(ele => {
+                res.forEach(ele => {
                     this.socialMediaService.getFirstAndLastName(ele.user_id).then(name => {
                         names.push(name)
                     })
@@ -52,22 +48,18 @@ export class SearchPageComponent {
 
             this.namesWhoCommented = names
         }
-
-        else if (this.searchCategory === 'Friends'){
-            console.log(this.searchQuery);
-        }
-        else if (this.searchCategory === 'Photos'){
+        else if (this.searchCategory === 'photos'){
             // console.log(this.searchCategory);
             let tags = this.searchQuery.split(" ")
             this.socialMediaService.selectAllPhotosWithTag(tags).then(res => {
                 this.photosViaTagSearch = res
             })
         }
-        else if (this.searchCategory === 'Tags'){
-            console.log(this.searchCategory);
-        }
-        else{
-        console.log(this.searchCategory);
+        else if (this.searchCategory === 'user_photos') {
+            let tags = this.searchQuery.split(" ")
+            this.socialMediaService.selectUsersPhotosWithTag(this.cookieService.get('user_id'),tags).then(res => {
+                this.photosViaTagSearch = res
+            })
         }
     }
 
